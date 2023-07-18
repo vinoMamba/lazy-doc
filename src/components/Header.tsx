@@ -1,5 +1,6 @@
-import { MessageOutlined, UserOutlined } from "@ant-design/icons"
+import { UserOutlined } from "@ant-design/icons"
 import { Icon } from "./Icon"
+import { Notice } from "./Notice"
 
 export const Header = () => {
   return (
@@ -15,7 +16,7 @@ export const Header = () => {
             </h1>
           </div>
           <div className="flex items-center gap-16 cursor-pointer">
-            <Icon helpMsg="我的消息"><MessageOutlined /></Icon>
+            <Notice />
             <Icon helpMsg="用户信息"><UserOutlined /></Icon>
           </div>
         </nav>

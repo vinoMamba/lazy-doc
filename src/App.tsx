@@ -6,6 +6,12 @@ function App() {
   const theme: ThemeConfig = {
     token: {
       colorPrimary: '#343a40'
+    },
+    components: {
+      Modal: {
+        contentBg: '#fafafa',
+        headerBg: '#fafafa'
+      }
     }
   }
   return (
