@@ -1,6 +1,7 @@
-import { ProjectAside, ProjectList } from "../components/Project"
+import { Outlet } from "react-router-dom"
+import { ProjectAside } from "../components/Project"
 import { Header } from "/@/components/Header"
-export const Home = () => {
+export const ProjectLayout = () => {
   return (
     <>
       <Header />
@@ -9,7 +10,7 @@ export const Home = () => {
           <ProjectAside />
         </aside>
         <article className="w-full min-h[calc(100vh-80px)] mt-16 ml-16">
-          <ProjectList />
+          <Outlet />
         </article>
       </main>
     </>

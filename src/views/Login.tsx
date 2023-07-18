@@ -18,7 +18,7 @@ export const Login = () => {
   })
 
   const handleClick = () => {
-    navigate("/home")
+    navigate("/project/list")
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, key: Key) => {
