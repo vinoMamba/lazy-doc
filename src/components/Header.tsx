@@ -5,9 +5,9 @@ import { Notice } from "./Notice"
 export const Header = () => {
   return (
     <header
-      className="position-sticky top-0 box-b backdrop-blur-24 z-1000 border-b border-b-solid border-gray"
+      className="position-sticky top-0 box-b backdrop-blur-24 z-1000 border-b border-b-solid border-#ddd"
     >
-      <div className="w[1248px] my-0 m-auto px-24">
+      <div className="my-0 m-auto px-24">
         <nav className="h[64px] relative flex items-center justify-between">
           <div>
             <h1 className='m-0'>

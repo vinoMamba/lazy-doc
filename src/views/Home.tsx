@@ -1,16 +1,17 @@
+import { ProjectAside, ProjectList } from "../components/Project"
 import { Header } from "/@/components/Header"
 export const Home = () => {
   return (
-    <main>
+    <>
       <Header />
-      <div className="min-h-screen ">
-        <div className="max-w[1200px] my-0 mx-auto relative flex h-screen bg-gray">
-          <aside className="sticky w[300px] top-100 bg-red h-full">
-            guide
-          </aside>
-          <article className="grow-1 h-full bg-blue">content</article>
-        </div>
-      </div>
-    </main>
+      <main className="relative flex w[1200px] my-0 mx-auto">
+        <aside className="sticky top-80 h-[calc(100vh-80px)] w-300 px-8 border-r border-r-solid border-#ddd">
+          <ProjectAside />
+        </aside>
+        <article className="w-full h-screen mt-16">
+          <ProjectList />
+        </article>
+      </main>
+    </>
   )
 }
