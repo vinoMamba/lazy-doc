@@ -8,7 +8,7 @@ export const Home = () => {
         <aside className="sticky top-80 h-[calc(100vh-80px)] w-300 px-8 border-r border-r-solid border-#ddd">
           <ProjectAside />
         </aside>
-        <article className="w-full h-screen mt-16">
+        <article className="w-full min-h[calc(100vh-80px)] mt-16 ml-16">
           <ProjectList />
         </article>
       </main>

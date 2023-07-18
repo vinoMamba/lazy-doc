@@ -19,7 +19,7 @@ export const ProjectAside = () => {
               setCurrentIndex(index)
             }}
             style={{
-              background: currentIndex === index ? 'white' : 'transparent'
+              background: currentIndex === index ? '#fafafa' : 'transparent'
             }}
           >
             {item.icon}
