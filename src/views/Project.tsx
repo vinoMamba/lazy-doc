@@ -1,7 +1,10 @@
-import { Button, Card, Table, Tag, Typography } from "antd"
+import { Card, Table, Tag, Typography } from "antd"
 import { useNavigate } from "react-router-dom"
 import { pageData } from "./mock"
 import { ByteEditor } from "../components/Editor/ByteEditor"
+import { EditButton } from "../components/Page"
+import { Icon } from "../components/Icon"
+import { RollbackOutlined } from "@ant-design/icons"
 
 const { Text, Title, Paragraph } = Typography
 
@@ -25,7 +28,10 @@ export const Project = () => {
     <div>
       <br />
       <Card className="w-full bg-#fafafa" title="登录接口" extra={
-        <Button onClick={() => navigate("/project/list")}>back</Button>
+        <div className="flex items-center gap-8">
+          <Icon helpMsg="返回" onClick={() => navigate("/project/list")} ><RollbackOutlined /></Icon>
+          <EditButton />
+        </div>
       }>
         <Typography>
           <Title level={5}>功能描述</Title>
