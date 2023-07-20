@@ -1,0 +1,64 @@
+//TODO: 消息通知
+export type NoticeItem = {
+  id: string
+  type: 'update' | 'create' | 'delete'
+  createTime: string
+  createdBy: {
+    username: string
+    userId: string
+  }
+  pageInfo: PageItem
+  remark: string
+}
+
+//TODO:  ProjectItem
+export interface ProjectItem {
+  id: string
+  isStar: boolean
+  isTop: boolean
+  projectName: string
+}
+
+//TODO: PageItem
+export interface PageItem {
+  pageId: string
+  pageTitle: string
+  desc: string //功能描述
+  url: string // 接口地址
+  reqProtocol: ReqProtocol // 请求协议
+  reqMethod: ReqMethod // 请求方法
+  reqHeaders: ReqHeader[] // 请求头
+  reqData: string // 请求参数data格式定义
+  reqParams: ReqParam[]
+  resData: string
+  resBody: ResBody[]
+  remark?: string
+}
+
+export enum ReqMethod {
+  POST = 'POST',
+  GET = 'GET',
+  PUT = 'PUT',
+  DELETE = 'DELETE'
+}
+
+export enum ReqProtocol {
+  HTTP = 'HTTP',
+  HTTPS = 'HTTPS'
+}
+
+export interface ReqHeader {
+  name: string
+  value: string
+}
+
+export interface ResBody {
+  fieldName: string
+  type: string
+  length?: number
+  desc: string
+}
+
+export interface ReqParam extends ResBody {
+  isRequired: boolean
+}

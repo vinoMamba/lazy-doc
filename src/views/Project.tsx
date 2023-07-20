@@ -1,16 +1,20 @@
-import { Button } from "antd"
-import { useParams, useNavigate } from "react-router-dom"
-import { ByteEditor } from "../components/Editor/ByteEditor"
+import { Button, Card, Tag } from "antd"
+import { useNavigate } from "react-router-dom"
 
 export const Project = () => {
   const navigate = useNavigate()
-  const params = useParams()
-  const str = JSON.stringify(params)
   return (
     <div>
-      <Button onClick={() => navigate("/project/list")}>back</Button>
-      <ByteEditor value={'xxxx'} />
-      {str}
+      <br />
+      <Card className="w-full bg-#fafafa" title="登录接口" extra={
+        <Button onClick={() => navigate("/project/list")}>back</Button>
+      }>
+        <section>
+          <Tag>POST</Tag>
+          <Tag>/login/password</Tag>
+        </section>
+
+      </Card>
     </div>
   )
 }

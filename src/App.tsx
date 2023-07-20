@@ -11,6 +11,10 @@ function App() {
       Modal: {
         contentBg: '#fafafa',
         headerBg: '#fafafa'
+      },
+      Tag: {
+        defaultBg: '#ededed',
+        defaultColor: '#666666'
       }
     }
   }

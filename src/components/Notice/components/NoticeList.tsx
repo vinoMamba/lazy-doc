@@ -1,5 +1,5 @@
 import { List } from "antd"
-import { NoticeItem } from "../type"
+import { NoticeItem } from "/@/types"
 
 export const NoticeList = () => {
   const listSource: Array<NoticeItem> = [

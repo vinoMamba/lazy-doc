@@ -1,8 +1,8 @@
 import { FileFilled } from "@ant-design/icons"
-import { ProjectItem } from "./type"
 import { List } from "antd"
 import { ActionDropdown } from "./components/ActionDropdown"
 import { useNavigate } from "react-router-dom"
+import { ProjectItem } from "/@/types"
 
 //TODO: 从接口获取项目列表
 const projectList: Array<ProjectItem> = Array.from({ length: 20 }).map((_, index) => {
