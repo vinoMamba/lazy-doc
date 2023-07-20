@@ -48,6 +48,7 @@ export enum ReqProtocol {
 }
 
 export interface ReqHeader {
+  key: string
   name: string
   value: string
 }

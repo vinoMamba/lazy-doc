@@ -29,6 +29,7 @@ export const pageData: PageItem = {
   reqMethod: ReqMethod.POST,
   reqHeaders: [
     {
+      key: 'ContentType',
       name: 'content-type',
       value: 'pplication/json'
     }
