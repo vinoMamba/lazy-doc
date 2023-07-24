@@ -4,6 +4,9 @@ import { ModalRef } from "./type"
 
 export const BasicModal = forwardRef<ModalRef, ModalProps>((props, ref) => {
   const { children, open, ...otherProps } = props
+
+  const [initProps, setProps] = useState<ModalProps>(otherProps)
+
   const [isOpen, setIsOpen] = useState(open)
 
   const handleOk = () => {
@@ -22,15 +25,17 @@ export const BasicModal = forwardRef<ModalRef, ModalProps>((props, ref) => {
     setIsOpen(false)
   }
 
+
   useImperativeHandle(ref, () => ({
     openModal,
-    closeModal
+    closeModal,
+    setProps
   }))
 
   return (
     <>
       <Modal
-        {...otherProps}
+        {...initProps}
         open={isOpen}
         onOk={handleOk}
         onCancel={handleCancel}
