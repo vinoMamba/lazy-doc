@@ -10,6 +10,7 @@ export type FormProps = {
   name?: string
   layout?: 'horizontal' | 'vertical' | 'inline'
   schemas?: FormSchema[]
+  labelWidth?: number
 }
 
 export interface FormSchema {
@@ -18,6 +19,7 @@ export interface FormSchema {
   component: ComponentType
   componentProps?: (() => Recordable) | Recordable
   required?: boolean
+  span?: number
 }
 
 export type ComponentType =

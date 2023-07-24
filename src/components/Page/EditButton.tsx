@@ -15,6 +15,7 @@ export const EditButton = () => {
   })
 
   const [formRef] = useForm({
+    labelWidth: 140,
     schemas: formSchemas
   })
 
