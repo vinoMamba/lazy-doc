@@ -1,26 +1,32 @@
-import { Button, Form, Input } from "antd"
-
-const { useForm, Item } = Form
+import { Button } from "antd"
+import { BasicForm, useForm } from "../Form"
 
 
 export const PageForm = () => {
-  const [form] = useForm()
+  const [formRef, { validate, resetFields }] = useForm({
+    schemas: [
+      {
+        field: 'username',
+        label: '用户名',
+        component: "Input",
+      }
+    ]
+  })
+
   const handleClick = async () => {
-    const value = await form.validateFields()
-    console.log(value)
+    try {
+      const values = await validate()
+      console.log(values)
+    } catch (e) {
+      console.log(e)
+    }
   }
+
   return (
     <>
-      <Form
-        form={form}
-        name="pageForm"
-        layout="vertical"
-      >
-        <Item name='url' label="请求URL">
-          <Input />
-        </Item>
-        <Button onClick={handleClick}>ok</Button>
-      </Form>
+      <Button onClick={() => void handleClick()}>validation</Button>
+      <Button onClick={() => resetFields()}>resetFields</Button>
+      <BasicForm ref={formRef} />
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { EditFilled } from "@ant-design/icons"
 import { Icon } from "../Icon"
 import { BasicModal, useModal } from "../Modal"
+import { PageForm } from "./PageForm"
 
 export const EditButton = () => {
   const helpMsg = '编辑'
@@ -13,7 +14,7 @@ export const EditButton = () => {
     <>
       <Icon helpMsg={helpMsg} onClick={() => open()}><EditFilled /></Icon>
       <BasicModal ref={modalRef}>
-        111111
+        <PageForm />
       </BasicModal>
     </>
   )
