@@ -3,14 +3,16 @@ import { Icon } from "../Icon"
 import { BasicModal, useModal } from "../Modal"
 
 export const EditButton = () => {
+  const helpMsg = '编辑'
+
   const [modalRef, { open }] = useModal({
-    title: 'title'
+    title: helpMsg
   })
 
   return (
     <>
-      <Icon helpMsg="编辑" onClick={() => open()}><EditFilled /></Icon>
-      <BasicModal ref={modalRef} title="1111111">
+      <Icon helpMsg={helpMsg} onClick={() => open()}><EditFilled /></Icon>
+      <BasicModal ref={modalRef}>
         111111
       </BasicModal>
     </>
