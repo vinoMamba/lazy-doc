@@ -1,5 +1,5 @@
 import 'bytemd/dist/index.min.css'
-import { Viewer } from '@bytemd/react'
+import { Editor } from '@bytemd/react'
 import { FC } from 'react'
 import gfm from '@bytemd/plugin-gfm'
 import emoji from '@bytemd/plugin-gemoji'
@@ -13,6 +13,7 @@ import "juejin-markdown-themes/dist/geek-black.css"
 
 type Props = {
   value: string
+  onChange?: (preValue: string) => void
 }
 const plugins = [
   breaks(),
@@ -23,10 +24,15 @@ const plugins = [
   zoom(),
 ]
 
-export const ByteEditor: FC<Props> = ({ value }) => {
+export const ByteEditor: FC<Props> = ({ value, onChange }) => {
+  console.log(value)
   return (
     <div>
-      <Viewer plugins={plugins} value={value} />
+      <Editor
+        plugins={plugins}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   )
 }

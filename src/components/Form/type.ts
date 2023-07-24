@@ -17,10 +17,12 @@ export interface FormSchema {
   field: string
   label: string
   component: ComponentType
-  componentProps?: (() => Recordable) | Recordable
+  componentProps?: CompProps
   required?: boolean
   span?: number
 }
+
+export type CompProps = ((opt: { schema: FormSchema }) => Recordable) | Recordable
 
 export type ComponentType =
   'Input'

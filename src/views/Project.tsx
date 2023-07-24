@@ -1,7 +1,6 @@
 import { Card, Table, Tag, Typography } from "antd"
 import { useNavigate } from "react-router-dom"
 import { pageData } from "./mock"
-import { ByteEditor } from "../components/Editor/ByteEditor"
 import { EditButton } from "../components/Page"
 import { Icon } from "../components/Icon"
 import { RollbackOutlined } from "@ant-design/icons"
@@ -9,8 +8,7 @@ import { RollbackOutlined } from "@ant-design/icons"
 const { Text, Title, Paragraph } = Typography
 
 export const Project = () => {
-  const { url, reqMethod, desc, reqHeaders, reqData } = pageData
-  const mdReqData = `\`\`\` ${reqData} \`\`\``
+  const { url, reqMethod, desc, reqHeaders } = pageData
   const navigate = useNavigate()
   const columns = [
     {
@@ -62,7 +60,6 @@ export const Project = () => {
         <Typography>
           <Title level={5}>请求参数data格式定义</Title>
           <Paragraph>
-            <ByteEditor value={mdReqData} />
           </Paragraph>
         </Typography>
       </Card>

@@ -10,7 +10,7 @@ export const EditButton = () => {
   const helpMsg = '编辑'
 
   const [modalRef, { open }] = useModal({
-    width: '80vw',
+    width: '60vw',
     title: helpMsg
   })
 
