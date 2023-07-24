@@ -1,16 +1,16 @@
 import { EditFilled } from "@ant-design/icons"
-import { useModal } from "../Modal"
 import { Icon } from "../Icon"
-import { Modal } from "antd"
+import { BasicModal, useModal } from "../Modal"
+
 export const EditButton = () => {
-  const [open, { openClick, closeClick }] = useModal()
-  const handleClick = () => {
-    openClick()
-  }
+  const [modalRef, { open }] = useModal()
+
   return (
     <>
-      <Icon helpMsg="编辑" onClick={handleClick}><EditFilled /></Icon>
-      <Modal open={open} onOk={closeClick}>111</Modal>
+      <Icon helpMsg="编辑" onClick={() => open()}><EditFilled /></Icon>
+      <BasicModal ref={modalRef} title={"title"} >
+        111111
+      </BasicModal>
     </>
   )
 }

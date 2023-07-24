@@ -1,16 +1,26 @@
-import { useState } from "react"
+import { useRef } from "react"
+import { ModalRef } from "./type"
+import { MutableRefObject } from "react"
 
 type Method = {
-  openClick: () => void
-  closeClick: () => void
+  open: () => void
 }
-type Return = [boolean, Method]
+
+type ReturnType = [
+  MutableRefObject<ModalRef | null>,
+  Method
+]
 
 export const useModal = () => {
-  const [open, setIsOpen] = useState(false)
+  const modalRef = useRef<ModalRef | null>(null)
 
-  const openClick = () => { setIsOpen(true) }
-  const closeClick = () => { setIsOpen(false) }
+  const getInstance = () => {
+    return modalRef.current
+  }
 
-  return [open, { openClick, closeClick }] as Return
+  const open = () => {
+    getInstance()?.openModal()
+  }
+
+  return [modalRef, { open }] as ReturnType
 }
