@@ -20,4 +20,10 @@ export interface FormSchema {
   required?: boolean
 }
 
-export type ComponentType = 'Input'
+export type ComponentType =
+  'Input'
+  | 'TextArea'
+  | 'InputNumber'
+  | 'Select'
+  | 'Table'
+  | 'ByteEditor'

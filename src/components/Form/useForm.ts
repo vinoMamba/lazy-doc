@@ -25,7 +25,7 @@ export const useForm = (initProps: FormProps) => {
       ...props,
       ...initProps
     }) as FormProps)
-  }, [initProps])
+  }, [formRef, initProps])
 
   const method = {
     validate: async () => {

@@ -13,12 +13,12 @@ export const BasicForm = forwardRef<FormRef, FormProps>((props, ref) => {
   useImperativeHandle(ref, () => ({ setProps, form }))
 
   return (
-    <Form
-      form={form}
-    >{
+    <Form form={form}>
+      {
         schemas.map(schema => (
           <FormItem key={schema.field} schema={schema} />
         ))
-      }</Form>
+      }
+    </Form>
   )
 })
