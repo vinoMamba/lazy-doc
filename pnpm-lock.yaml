@@ -49,6 +49,9 @@ dependencies:
   react-router-dom:
     specifier: ^6.14.2
     version: 6.14.2(react-dom@18.2.0)(react@18.2.0)
+  vditor:
+    specifier: ^3.9.4
+    version: 3.9.4
 
 devDependencies:
   '@types/node':
@@ -1897,6 +1900,10 @@ packages:
   /destr@2.0.0:
     resolution: {integrity: sha512-FJ9RDpf3GicEBvzI3jxc2XhHzbqD8p4ANw/1kPsFBfTvP1b7Gn/Lg1vO7R9J4IVgoMbyUmFrFGZafJ1hPZpvlg==}
     dev: true
+
+  /diff-match-patch@1.0.5:
+    resolution: {integrity: sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==}
+    dev: false
 
   /diff@5.1.0:
     resolution: {integrity: sha512-D+mk+qE8VC/PAUrlAU34N+VfXev0ghe5ywmpqrawphmVZc1bEfn56uo9qpyGp1p4xpzOHkSW4ztBd6L7Xx4ACw==}
@@ -4225,6 +4232,12 @@ packages:
       diff: 5.1.0
       kleur: 4.1.5
       sade: 1.8.1
+    dev: false
+
+  /vditor@3.9.4:
+    resolution: {integrity: sha512-w7k7Xmdgs5LUTnXWoWyqCqlX+XC+yhJi2kRHzalho47rztp8m2Bi7wMBELjjjUTcoCHbQAatug0Awb/rNYfCwQ==}
+    dependencies:
+      diff-match-patch: 1.0.5
     dev: false
 
   /vfile-location@4.1.0:
