@@ -1,6 +1,6 @@
-import { Modal, ModalProps } from "antd"
+import { Modal } from "antd"
 import { forwardRef, useImperativeHandle, useState } from "react"
-import { ModalRef } from "./type"
+import { ModalProps, ModalRef } from "./type"
 
 export const BasicModal = forwardRef<ModalRef, ModalProps>((props, ref) => {
   const { children, open, ...otherProps } = props
@@ -10,6 +10,10 @@ export const BasicModal = forwardRef<ModalRef, ModalProps>((props, ref) => {
   const [isOpen, setIsOpen] = useState(open)
 
   const handleOk = () => {
+    const { beforeOkFunc } = otherProps
+    if (typeof beforeOkFunc === 'function') {
+      beforeOkFunc()
+    }
     setIsOpen(false)
   }
 

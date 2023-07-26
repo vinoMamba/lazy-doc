@@ -9,7 +9,6 @@ type Props = {
 
 export const VEditor = forwardRef<EditorRef, Props>(({ value }, ref) => {
   const [vd, setVd] = useState<Vditor>()
-
   const getValue = () => {
     return vd?.getValue() || ''
   }
