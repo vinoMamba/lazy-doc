@@ -1,18 +1,17 @@
 import "vditor/dist/index.css";
 import Vditor from "vditor";
-import { FC, forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { EditorRef } from "./type";
 
 type Props = {
   value: string,
 }
 
-export const VEditor: FC<Props> = forwardRef(({ value }, ref) => {
+export const VEditor = forwardRef<EditorRef, Props>(({ value }, ref) => {
   const [vd, setVd] = useState<Vditor>()
 
   const getValue = () => {
-    const xxx = vd?.getValue()
-    console.log(xxx)
-    return xxx
+    return vd?.getValue() || ''
   }
   useImperativeHandle(ref, () => ({
     getValue
@@ -49,20 +48,6 @@ export const VEditor: FC<Props> = forwardRef(({ value }, ref) => {
         "undo",
         "redo",
         "|",
-        {
-          name: "more",
-          toolbar: [
-            "both",
-            "code-theme",
-            "content-theme",
-            "export",
-            "outline",
-            "preview",
-            "devtools",
-            "info",
-            "help",
-          ],
-        },
       ],
       outline: {
         enable: true,
