@@ -1,3 +1,19 @@
+//loginParams
+export type LoginParams = {
+  username: string
+  password: string
+}
+// userInfo
+export interface UserInfo {
+  userId: string
+  username: string
+  avatar: string
+}
+export interface TokenInfo {
+  tokenValue: string
+  tokenTimeout: string
+}
+
 //TODO: 消息通知
 export type NoticeItem = {
   id: string

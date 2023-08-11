@@ -1,27 +1,23 @@
 import { Card, Input, Button } from 'antd'
 import { ChangeEvent } from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-
-type LoginParams = {
-  username: string
-  password: string
-}
+import { useLogin } from '../hooks/useLogin'
+import { LoginParams } from '../types'
 
 type Key = keyof LoginParams
 
 export const Login = () => {
-  const navigate = useNavigate()
+  const [shouldFetch, setShouldFetch] = useState(false)
   const [loginParams, setLoginParams] = useState<LoginParams>({
     username: '',
     password: ''
   })
-
+  const { isLoading } = useLogin(loginParams, shouldFetch)
   const handleClick = () => {
-    navigate("/project/list")
+    setShouldFetch(true)
   }
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>, key: Key) => {
+    setShouldFetch(false)
     const value = e.target.value
     setLoginParams(loginParams => {
       return {
@@ -30,7 +26,6 @@ export const Login = () => {
       }
     })
   }
-
   return (
     <main className="m-screen h-screen bg-#fafafa flex items-center justify-center">
       <Card title="登录" bordered={false} style={{ width: 300 }}>
@@ -49,7 +44,7 @@ export const Login = () => {
             value={loginParams.password}
             onChange={(e) => handleChange(e, 'password')}
           />
-          <Button className='w-full' size="large" type="primary" onClick={handleClick}>登录</Button>
+          <Button loading={isLoading} className='w-full' size="large" type="primary" onClick={handleClick}>登录</Button>
         </div>
       </Card>
     </main>
