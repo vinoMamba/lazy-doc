@@ -23,10 +23,10 @@ export const useHttp = () => {
 
   return {
     get: async <T>(path: string, config?: AxiosRequestConfig<unknown>) => {
-      return http.get<T>(path, config).catch(onError)
+      return http.get<Result<T>>(path, config).catch(onError)
     },
     post: async <T>(path: string,data:JSONValue) => {
-      return http.post<T>(path,data).catch(onError)
+      return http.post<Result<T>>(path,data).catch(onError)
     },
   }
 }

@@ -18,6 +18,8 @@ module.exports = {
   },
   plugins: ['react-refresh'],
   rules: {
+    '@typescript-eslint/no-floating-promises': 'off',
+    'no--floating-promised':'off',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
