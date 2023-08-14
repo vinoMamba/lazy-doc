@@ -7,5 +7,5 @@ export type ModalRef = {
 }
 
 export interface ModalProps extends BasicProps {
-  beforeOkFunc: () => void
+  beforeOkFunc?: () => void
 }

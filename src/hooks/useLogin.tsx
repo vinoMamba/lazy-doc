@@ -30,7 +30,7 @@ export const useLogin = (loginParams: LoginParams, shouldFetch: boolean) => {
       const { userInfo, tokenInfo } = result
       setUserInfo(userInfo)
       window.localStorage.setItem("token", tokenInfo.tokenValue)
-      navigate("/project/list")
+      navigate("/home")
     } else {
       message.error(msg)
     }
