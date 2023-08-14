@@ -9,10 +9,43 @@ export interface UserInfo {
   username: string
   avatar: string
 }
+// tokenInfo
 export interface TokenInfo {
   tokenValue: string
   tokenTimeout: string
 }
+
+// common PageParams
+interface PageParams {
+  pageNum: number
+  pageSize: number
+}
+// common PageResult 
+export interface PageResult<T> {
+  total: number
+  items: Array<T>
+  page: number
+  pageSize: number
+  totalPage: number
+}
+
+// project
+// project params
+export interface GetProjectParams extends PageParams {
+  projectName?: string
+}
+
+// ProjectItem 
+export interface ProjectItem {
+  projectId: string
+  projectName: string
+  projectGroupId: string
+  description: string
+  sort: number
+  projectLogo: string
+  createTime: string
+}
+
 
 //TODO: 消息通知
 export type NoticeItem = {

@@ -3,6 +3,7 @@ import { Login } from "/@/views/Login";
 import { Home } from "../views/Home";
 import { Erd } from "../views/erd";
 import { Doc } from "../views/doc";
+import { Project } from "../views/erd/project";
 
 export const router = createBrowserRouter([
   {
@@ -14,16 +15,26 @@ export const router = createBrowserRouter([
     element: <Login />
   },
   {
-    path:"home",
-    element:<Home/>
+    path: "home",
+    element: <Home />
   },
   {
-    path:"erd",
-    element:<Erd/>
+    path: "erd",
+    element: <Erd />,
+    children: [
+      {
+        path: "project",
+        element: <Project />
+      },
+      {
+        path: "proejct-group",
+        element: <div>1111</div>
+      }
+    ]
   },
   {
-    path:"doc",
-    element:<Doc/>
+    path: "doc",
+    element: <Doc />
   },
 ]);
 
