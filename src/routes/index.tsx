@@ -4,6 +4,7 @@ import { Home } from "../views/Home";
 import { Erd } from "../views/erd";
 import { Doc } from "../views/doc";
 import { Project } from "../views/erd/project";
+import { ProjectItem } from "../views/erd/projectItem";
 
 export const router = createBrowserRouter([
   {
@@ -24,11 +25,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "project",
-        element: <Project />
+        element: <Project />,
+      },
+
+      {
+        path: "project/:projectId",
+        element: <ProjectItem />,
+        loader: async ({ params }) => {
+          return params.projectId
+        }
       },
       {
         path: "proejct-group",
-        element: <div>1111</div>
+        element: <div>1111</div>,
       }
     ]
   },

@@ -7,7 +7,7 @@ import { ListItem } from "./components/ListItem"
 export const Project = () => {
   const [params, setParams] = useState<GetProjectParams>({
     pageNum: 1,
-    pageSize: 6
+    pageSize: 9
   })
 
   const { data, isLoading } = useProject(params)
@@ -26,6 +26,7 @@ export const Project = () => {
           position: "bottom",
           align: "end",
           total: data?.total,
+          showTotal: (total) => <span>共 {total} 条数据</span>,
           defaultCurrent: 1,
           onChange
         }}

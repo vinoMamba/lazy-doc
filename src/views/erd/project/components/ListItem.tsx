@@ -6,6 +6,7 @@ import s from "/@/assets/error.png"
 import { ProjectModal } from "./ProjectModal"
 import { useProjectModal } from "../hooks/useProjectModal"
 import { MouseEvent } from "react"
+import { useNavigate } from "react-router-dom"
 
 const { Item } = List
 const { Meta } = Card
@@ -33,6 +34,7 @@ const Cover: FC<{ logo: string, title: string }> = ({ logo, title }) => {
 }
 
 export const ListItem: FC<Props> = ({ project, loading }) => {
+  const navigate = useNavigate()
   const [modalRef, { openModal }] = useProjectModal()
   const handleOpen = () => {
     openModal({
@@ -44,7 +46,7 @@ export const ListItem: FC<Props> = ({ project, loading }) => {
     const actions = document.querySelectorAll(".ant-card-actions")
     const isHave = Array.from(actions).some(item => item.contains(e.target as HTMLElement));
     if (!isHave) {
-      console.log(project.projectId)
+      navigate(project.projectId)
     }
   }
   return (
