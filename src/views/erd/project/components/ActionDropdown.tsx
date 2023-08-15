@@ -25,7 +25,7 @@ export const ActionDropdown:FC<{item:ProjectItem}> = ({item}) => {
     { key: '3', label: <Item icon={<DeleteOutlined />} labelName="删除" /> },
   ]
   return (
-    <Dropdown menu={{ items }} placement="bottomRight">
+    <Dropdown destroyPopupOnHide menu={{ items }} placement="bottomRight">
       <EllipsisOutlined className="text-18 mr-16" />
     </Dropdown>
   )

@@ -31,3 +31,4 @@ export type ComponentType =
   | 'Select'
   | 'Table'
   | 'ByteEditor'
+  | 'Upload'

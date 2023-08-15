@@ -1,4 +1,4 @@
-import { Input, Select } from "antd";
+import { Input, Select ,Upload} from "antd";
 import { FC } from "react";
 import { ComponentType } from "./type";
 import { ByteEditor } from "../Editor/ByteEditor";
@@ -11,6 +11,7 @@ compoentMap.set('Input', Input)
 compoentMap.set('TextArea', TextArea)
 compoentMap.set('Select', Select)
 compoentMap.set('ByteEditor', ByteEditor as FC)
+compoentMap.set('Upload', Upload)
 
 export {
   compoentMap
