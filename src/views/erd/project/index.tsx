@@ -7,7 +7,7 @@ import { ListItem } from "./components/ListItem"
 export const Project = () => {
   const [params, setParams] = useState<GetProjectParams>({
     pageNum: 1,
-    pageSize: 9
+    pageSize: 6
   })
 
   const { data, isLoading } = useProject(params)
@@ -29,7 +29,7 @@ export const Project = () => {
           defaultCurrent: 1,
           onChange
         }}
-        grid={{ column: 3 }}
+        grid={{ gutter:16, column: 3 }}
         dataSource={data?.items}
         renderItem={(item) => (
           <ListItem project={item} loading={isLoading} />
