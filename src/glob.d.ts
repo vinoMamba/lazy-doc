@@ -7,3 +7,7 @@ type Result<T> = {
   data: T
   message: string
 }
+
+declare interface Fn<T = any, R = T> {
+  (...arg: T[]): R;
+}

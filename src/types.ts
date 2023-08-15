@@ -47,6 +47,25 @@ export interface ProjectItem {
 }
 
 
+// project group
+// project group params
+export interface GetProjectGroupParams extends PageParams {
+  projectGroupName?: string
+}
+
+// ProjectGroupItem 
+export interface ProjectGroupItem {
+  projectGroupId: string
+  groupName: string
+  createUser: string
+  createTime: string
+  description: string
+  projectNum: number
+}
+
+
+
+
 //TODO: 消息通知
 export type NoticeItem = {
   id: string

@@ -7,6 +7,7 @@ type Method = {
   resetFields: () => void
   setFieldValue: (name: NamePath, value: unknown) => void;
   setFieldsValue: (values: Recordable) => void;
+  getFieldsValue: () => Recordable;
 }
 
 type ReturnType = [
@@ -20,7 +21,6 @@ export const useForm = (initProps: FormProps) => {
   const formRef = useRef<FormRef | null>(null)
 
   const getInstance = () => {
-    console.log(formRef.current)
     return formRef.current
   }
 
@@ -45,12 +45,19 @@ export const useForm = (initProps: FormProps) => {
     resetFields: () => {
       getInstance()?.form.resetFields()
     },
+
     setFieldValue: (name: NamePath, value: unknown) => {
       getInstance()?.form.setFieldValue(name, value)
     },
-    setFieldsValue: (values:Recordable) => {
-      getInstance()?.form.setFieldsValue(values)
+
+    setFieldsValue: (values: Recordable) => {
+      setTimeout(() => {
+        getInstance()?.form.setFieldsValue(values)
+      }, 0)
     },
+    getFieldsValue: () => {
+      return getInstance()?.form.getFieldsValue()
+    }
   }
 
   return [formRef, method] as ReturnType

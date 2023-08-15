@@ -28,5 +28,8 @@ export const useHttp = () => {
     post: async <T>(path: string,data:JSONValue) => {
       return http.post<Result<T>>(path,data).catch(onError)
     },
+    put: async <T>(path: string,data:JSONValue) => {
+      return http.put<Result<T>>(path,data).catch(onError)
+    },
   }
 }

@@ -3,9 +3,8 @@ import { ProjectItem } from "/@/types"
 import { FC } from "react"
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons"
 import s from "/@/assets/error.png"
-import { EditItem } from "./EditItem"
 import { ProjectModal } from "./ProjectModal"
-import { useModal } from "/@/components/Modal"
+import { useProjectModal } from "../hooks/useProjectModal"
 
 const { Item } = List
 const { Meta } = Card
@@ -33,7 +32,13 @@ const Cover: FC<{ logo: string, title: string }> = ({ logo, title }) => {
 }
 
 export const ListItem: FC<Props> = ({ project, loading }) => {
-  const [modalRef, { open }] = useModal()
+  const [modalRef, { openModal }] = useProjectModal()
+  const handleOpen = () => {
+    openModal({
+      isEdit: true,
+      project
+    })
+  }
   return (
     <Item>
       <Card
@@ -42,7 +47,7 @@ export const ListItem: FC<Props> = ({ project, loading }) => {
         style={{ width: 300 }}
         cover={<Cover logo={project.projectLogo} title={project.projectName} />}
         actions={[
-          <EditOutlined />,
+          <EditOutlined onClick={handleOpen} />,
           <EllipsisOutlined key="ellipsis" />,
         ]}
       >

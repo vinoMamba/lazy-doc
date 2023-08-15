@@ -4,7 +4,7 @@ import { MutableRefObject } from "react"
 import { ModalProps } from "antd"
 
 type Method = {
-  open: () => void
+  open: <T = Recordable>(data?: T) => void
 }
 
 type ReturnType = [
@@ -12,7 +12,9 @@ type ReturnType = [
   Method
 ]
 
-export const useModal = (initProps: ModalProps) => {
+const transformDataMap = new Map<typeof Symbol, Recordable>()
+
+export const useModal = (initProps?: ModalProps) => {
   const modalRef = useRef<ModalRef | null>(null)
 
   const getInstance = () => {
@@ -26,7 +28,8 @@ export const useModal = (initProps: ModalProps) => {
     }) as ModalProps)
   }
 
-  const open = () => {
+  const open = <T = Recordable>(data?: T) => {
+    console.log(data)
     setInitProps()
     getInstance()?.openModal()
   }
@@ -34,3 +37,9 @@ export const useModal = (initProps: ModalProps) => {
 
   return [modalRef, { open }] as ReturnType
 }
+
+export const useModalInner = () => {
+  const modalRef = useRef<ModalRef | null>(null)
+  return [modalRef]
+}
+

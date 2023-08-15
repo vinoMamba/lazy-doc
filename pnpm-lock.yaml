@@ -43,6 +43,9 @@ dependencies:
   juejin-markdown-themes:
     specifier: ^1.29.7
     version: 1.29.7
+  lodash-es:
+    specifier: ^4.17.21
+    version: 4.17.21
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -63,6 +66,9 @@ dependencies:
     version: 4.3.9(react@18.2.0)
 
 devDependencies:
+  '@types/lodash-es':
+    specifier: ^4.17.8
+    version: 4.17.8
   '@types/node':
     specifier: ^20.4.2
     version: 20.4.2
@@ -885,11 +891,9 @@ packages:
     resolution: {integrity: sha512-euY3XQcZmIzSy7YH5+Unb3b2X12Wtk54YWINBvvGQ5SmMvwb11JQskGsfkH/5HXK77Kr8GF0wkVDIxzAisWtog==}
     dependencies:
       '@types/lodash': 4.14.195
-    dev: false
 
   /@types/lodash@4.14.195:
     resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
-    dev: false
 
   /@types/mdast@3.0.12:
     resolution: {integrity: sha512-DT+iNIRNX884cx0/Q1ja7NyUPpZuv0KPyL5rGNxm1WC1OtHstl7n4Jb7nk+xacNShQMbczJjt8uFzznpp6kYBg==}
