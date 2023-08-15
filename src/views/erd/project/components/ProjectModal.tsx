@@ -16,9 +16,9 @@ export interface ProjectModalRef {
 
 export const ProjectModal = forwardRef<ProjectModalRef>((_props, ref) => {
   const { post, put } = useHttp()
-  const { options } = useProjectGroupOptions({ pageSize: 999, pageNum: 1 })
   const [title, setTitle] = useState("新增")
   const [isOpen, setIsOpen] = useState(false)
+  const { options } = useProjectGroupOptions({ pageSize: 999, pageNum: 1 })
   const [formRef, { setFieldsValue, getFieldsValue }] = useForm({
     labelWidth: 75,
     schemas: [

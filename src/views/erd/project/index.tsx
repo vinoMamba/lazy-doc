@@ -29,10 +29,10 @@ export const Project = () => {
           defaultCurrent: 1,
           onChange
         }}
-        grid={{ gutter:16, column: 3 }}
+        grid={{ gutter: 16, column: 3 }}
         dataSource={data?.items}
         renderItem={(item) => (
-          <ListItem project={item} loading={isLoading} />
+          <ListItem key={item.projectId} project={item} loading={isLoading} />
         )}
       />
     </>

@@ -1,10 +1,11 @@
-import { Card, Image, List } from "antd"
+import { Card, Dropdown, Image, List, MenuProps, Popconfirm } from "antd"
 import { ProjectItem } from "/@/types"
 import { FC } from "react"
-import { EditOutlined, EllipsisOutlined } from "@ant-design/icons"
+import { DeleteFilled, EditOutlined, EllipsisOutlined, QuestionCircleOutlined } from "@ant-design/icons"
 import s from "/@/assets/error.png"
 import { ProjectModal } from "./ProjectModal"
 import { useProjectModal } from "../hooks/useProjectModal"
+import { MouseEvent } from "react"
 
 const { Item } = List
 const { Meta } = Card
@@ -39,16 +40,24 @@ export const ListItem: FC<Props> = ({ project, loading }) => {
       project
     })
   }
+  const handleItemClick = (e: MouseEvent) => {
+    const actions = document.querySelectorAll(".ant-card-actions")
+    const isHave = Array.from(actions).some(item => item.contains(e.target as HTMLElement));
+    if (!isHave) {
+      console.log(project.projectId)
+    }
+  }
   return (
     <Item>
       <Card
+        onClick={e => handleItemClick(e)}
         loading={loading}
         hoverable
         style={{ width: 300 }}
         cover={<Cover logo={project.projectLogo} title={project.projectName} />}
         actions={[
-          <EditOutlined onClick={handleOpen} />,
-          <EllipsisOutlined key="ellipsis" />,
+          <EditOutlined key="edit" onClick={handleOpen} />,
+          <DeleteFilled key="delete" />
         ]}
       >
         <Meta title={project.projectName} description={project.description} />
