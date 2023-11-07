@@ -3,9 +3,10 @@ import type { FC } from 'react'
 
 interface Props {
   icon: string
+  className?: string
 }
-export const SvgIcon: FC<Props> = ({ icon }) => {
+export const SvgIcon: FC<Props> = ({ icon, className }) => {
   return (
-    <Icon icon={icon} />
+    <Icon icon={icon} className={className} />
   )
 }
