@@ -1,0 +1,32 @@
+import { type FC, memo } from 'react'
+
+export const LoadingUI: FC = () => {
+  return (
+    <div
+      className="
+          inline-block
+          h-8
+          w-8
+          animate-spin
+          rounded-full
+          border-4
+          border-solid
+          border-[#343a40]
+          border-r-transparent
+          align-[-0.125em]
+          motion-reduce:animate-[spin_1.5s_linear_infinite]
+        "
+    >
+    </div>
+  )
+}
+
+export const Loading: React.FC = memo(() => {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#faf9ff;]">
+      <div className="flex flex-col items-center justify-center ">
+        <LoadingUI />
+      </div>
+    </div>
+  )
+})
