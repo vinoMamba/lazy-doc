@@ -1,10 +1,10 @@
-import {Icon} from '@iconify-icon/react'
-import { FC } from 'react'
+import { Icon } from '@iconify-icon/react'
+import type { FC } from 'react'
 
-type Props ={
+interface Props {
   icon: string
 }
-export const  SvgIcon:FC<Props> = ({icon}) => {
+export const SvgIcon: FC<Props> = ({ icon }) => {
   return (
     <Icon icon={icon} />
   )
