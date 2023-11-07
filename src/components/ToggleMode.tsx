@@ -8,10 +8,10 @@ export const ToggleMode: FC = () => {
     setIsDarkMode(!isDarkMode)
   }
   return (
-    <label className="swap fixed top-8 right-8">
-      <input type="checkbox" checked={isDarkMode} onChange={handleChange} />
-      <SvgIcon icon="material-symbols:sunny" className="swap-off" />
-      <SvgIcon icon="material-symbols:nightlight" className="swap-on" />
-    </label>
+    <div className="tooltip tooltip-bottom" data-tip="切换深色模式">
+      <button className=" btn btn-square btn-sm " onClick={handleChange}>
+        <SvgIcon icon={isDarkMode ? 'fluent:weather-moon-20-filled' : 'fluent:weather-sunny-20-filled'} />
+      </button>
+    </div>
   )
 }

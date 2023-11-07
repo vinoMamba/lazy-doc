@@ -1,10 +1,11 @@
 import { Suspense, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import './global.css'
 import { RouterProvider } from 'react-router-dom'
 import { useDarkMode } from './store/useDarkMode'
-import { Loading } from '@/components/Loading'
 import { router } from '@/router/router'
+import { Loading } from '@/components/Loading'
+
+import './global.css'
 
 const container = document.getElementById('root')
 

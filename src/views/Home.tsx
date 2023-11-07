@@ -5,6 +5,7 @@ export const Home: FC = () => {
   return (
     <div>
       <Header />
+      <main className=" bg-base-300 w-full h-screen"></main>
     </div>
   )
 }
