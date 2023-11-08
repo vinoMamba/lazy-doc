@@ -1,8 +1,8 @@
 import type { FC } from 'react'
-import { SvgIcon } from '../Icon'
-import { ToggleMode } from '../ToggleMode'
-import { Logo } from './Logo'
 import { UserIcon } from './UserIcon'
+import { Logo } from '@/components/Logo'
+import { ToggleMode } from '@/components/ToggleMode'
+import { SvgIcon } from '@/components/Icon'
 
 export const Header: FC = () => {
   return (
