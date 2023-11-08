@@ -1,7 +1,8 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
-import { SvgIcon } from '../Icon'
+import { Avatar } from '@/components/Avatar'
+import { SvgIcon } from '@/components/Icon'
 
 export const UserIcon: FC = () => {
   const [isOpen, setIsOpen] = useState(true)
@@ -13,16 +14,15 @@ export const UserIcon: FC = () => {
         open={isOpen}
         onClose={() => setIsOpen(false)}
       >
-        <div className=" w-screen h-screen fixed flex items-center justify-center inset-0 bg-black/50 z-50">
-          <Dialog.Panel className="w-1/4 bg-base-200 rounded-lg p-4">
-            <Dialog.Title>Deactivate account</Dialog.Title>
+        <div className=" w-screen h-screen fixed inset-0 bg-black/50 z-50 flex items-start justify-center">
+          <Dialog.Panel className="w-1/4 bg-base-100 rounded-lg p-4 mt-[100px]">
+            <Dialog.Title className=" flex items-center cursor-default">
+              <SvgIcon icon="mdi:account-circle" />
+              用户信息
+            </Dialog.Title>
             <Dialog.Description>
-              This will permanently deactivate your account
+              <Avatar />
             </Dialog.Description>
-            <p>
-              Are you sure you want to deactivate your account? All of your data
-              will be permanently removed. This action cannot be undone.
-            </p>
             <button className=" btn" onClick={() => setIsOpen(false)}>Close</button>
           </Dialog.Panel>
         </div>

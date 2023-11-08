@@ -8,7 +8,7 @@ export const Login: FC = () => {
     navigate('/home')
   }
   return (
-    <main className=" flex items-center justify-center h-screen w-screen">
+    <main className=" flex items-center justify-center h-screen w-screen bg-base-100">
       <div className=" card card-compact bg-base-200 w-[300px] shadow-lg">
         <div className="card-title p-4 pb-0">
           Login

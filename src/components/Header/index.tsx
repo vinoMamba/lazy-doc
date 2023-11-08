@@ -6,7 +6,7 @@ import { UserIcon } from './UserIcon'
 
 export const Header: FC = () => {
   return (
-    <div className="bg-base-100 text-base-content sticky top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 [transform:translate3d(0,0,0)]">
+    <div className="bg-base-100 text-base-content sticky top-0 z-30 flex h-16 w-full justify-center bg-opacity-80 backdrop-blur">
       <header className="navbar px-16">
         <div className="flex-1">
           <Logo />

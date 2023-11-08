@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { SvgIcon } from './Icon'
+import { SvgIcon } from '../Icon'
 import { useDarkMode } from '@/store/useDarkMode'
 
 export const ToggleMode: FC = () => {
