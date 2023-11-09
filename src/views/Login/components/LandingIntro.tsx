@@ -6,7 +6,7 @@ export const LandingIntro: FC = () => {
     <aside className="px-4 flex flex-col justify-between">
       <Logo large />
       <ul className="flex-1 flex flex-col gap-2 mt-4 p-4 bg-default-100 rounded-md">
-        <li className="text-[#b249f8]">➜ A Technical Docment Tool</li>
+        <li className="text-[#b249f8]">➜ A Technical Document Tool</li>
         <li className="text-[#b249f8]">➜ Convenient And Fast</li>
         <li className=" text-success">➜ Let's Start! 😬</li>
       </ul>

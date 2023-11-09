@@ -6,7 +6,7 @@ import { ToggleMode } from '@/components/ToggleMode'
 export const Login: FC = () => {
   return (
     <div className="w-full h-screen flex items-center justify-center cursor-default">
-      <Card isBlurred>
+      <Card isBlurred className=" bg-content1">
         <CardBody>
           <div className=" grid grid-cols-2 gap-4 py-8 px-4">
             <LandingIntro />
