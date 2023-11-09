@@ -5,9 +5,13 @@ export const Home: FC = () => {
   return (
     <div>
       <Header />
-      <main className=" w-full h-screen flex justify-center">
-        <h1 className=" text-blue-400 text-5xl">Home</h1>
-      </main>
+      <section className="max-w-[1280px] m-auto grid grid-cols-4">
+        <div className="relative overflow-visible z-10">
+          <aside className="sticky top-16 h-[calc(100vh-65px)] w-full bg-default-100">
+          </aside>
+        </div>
+        <div className="col-span-3 bg-default-50 h-screen"></div>
+      </section>
     </div>
   )
 }

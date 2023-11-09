@@ -8,7 +8,7 @@ import { ToggleMode } from '@/components/ToggleMode'
 export const Header: FC = () => {
   return (
     <>
-      <nav className=" flex flex-col items-center justify-center sticky top-0 inset-x-0 backdrop-blur-lg bg-background/50 backdrop-saturate-50">
+      <nav className=" z-50 flex flex-col items-center justify-center sticky top-0 inset-x-0 backdrop-blur-lg bg-background/50 backdrop-saturate-50">
         <header className=" max-w-[1280px] h-16 flex items-center justify-between w-full">
           <Logo />
           <div className=" flex items-center gap-2">
