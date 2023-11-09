@@ -7,8 +7,7 @@ interface Props {
   onClick?: MouseEventHandler
 }
 export const SvgIcon: FC<Props> = ({ icon, className, onClick }) => {
-  const classes = className || 'btn btn-square btn-sm text-lg'
   return (
-    <Icon icon={icon} className={classes} onClick={onClick} />
+    <Icon icon={icon} className={className} onClick={onClick} />
   )
 }

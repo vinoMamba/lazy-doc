@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 import { useDarkMode } from './store/useDarkMode'
 import { router } from '@/router/router'
 import { Loading } from '@/components/Loading'
+import { Provider } from '@/components/Provider'
 
 import './global.css'
 
@@ -17,9 +18,11 @@ function App() {
   }, [isDarkMode])
 
   return (
-    <Suspense fallback={<Loading />}>
-      <RouterProvider router={router} />
-    </Suspense>
+    <Provider>
+      <Suspense fallback={<Loading />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </Provider>
   )
 }
 

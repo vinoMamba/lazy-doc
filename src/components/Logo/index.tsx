@@ -9,10 +9,10 @@ interface Props {
 export const Logo: FC<Props> = ({ large, ...rest }) => {
   return (
     <div className=" flex items-center cursor-pointer" {...rest}>
-      <SvgIcon icon="openmoji:pen" className={large ? 'text-[80px]' : 'text-[48px]'} />
+      <SvgIcon icon="openmoji:pen" className={large ? 'text-[72px]' : 'text-[48px]'} />
       <div className=" flex flex-col items-start ">
-        <h1 className={`${large ? 'text-4xl' : 'text-lg'} font-bold`}>Lazy Doc</h1>
-        <span className={`${large ? 'text-2xl' : 'text-sm'} text-[#999] italic`}>Enjoy Writing</span>
+        <h1 className={` ${large ? 'text-3xl' : 'text-lg'} tracking-tight inline font-bold from-[#11181c] to-[#b249f8] bg-clip-text text-transparent bg-gradient-to-b`}>Lazy Doc</h1>
+        <span className={`${large ? 'text-xl' : 'text-sm'} text-[#999] italic`}>Enjoy Writing</span>
       </div>
     </div>
   )
