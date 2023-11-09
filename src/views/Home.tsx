@@ -5,7 +5,9 @@ export const Home: FC = () => {
   return (
     <div>
       <Header />
-      <main className=" bg-slate-400 w-full h-screen"></main>
+      <main className=" w-full h-screen flex justify-center">
+        <h1 className=" text-blue-400 text-5xl">Home</h1>
+      </main>
     </div>
   )
 }

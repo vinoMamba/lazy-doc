@@ -9,7 +9,7 @@ export const ToggleMode: FC = () => {
     setIsDarkMode(!isDarkMode)
   }
   return (
-    <Button isIconOnly onClick={handleChange} size="sm">
+    <Button isIconOnly onClick={handleChange} size="sm" variant="flat">
       <SvgIcon
         icon={isDarkMode ? 'fluent:weather-moon-20-filled' : 'fluent:weather-sunny-20-filled'}
         className="text-xl"

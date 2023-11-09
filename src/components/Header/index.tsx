@@ -1,22 +1,24 @@
 import type { FC } from 'react'
-import { UserIcon } from './UserIcon'
+import { Divider } from '@nextui-org/react'
+import { UserIcon } from './compoents/UserIcon'
+import { Search } from './compoents/Search'
 import { Logo } from '@/components/Logo'
 import { ToggleMode } from '@/components/ToggleMode'
-import { SvgIcon } from '@/components/Icon'
 
 export const Header: FC = () => {
   return (
-    <div className="bg-base-100 text-base-content sticky top-0 z-30 flex h-16 w-full justify-center bg-opacity-80 backdrop-blur">
-      <header className="navbar px-16">
-        <div className="flex-1">
+    <>
+      <nav className=" flex flex-col items-center justify-center sticky top-0 inset-x-0 backdrop-blur-lg bg-background/50 backdrop-saturate-50">
+        <header className=" max-w-[1280px] h-16 flex items-center justify-between w-full">
           <Logo />
-        </div>
-        <div className="flex items-center gap-3">
-          <SvgIcon icon="mdi:message-processing-outline" />
-          <UserIcon />
-          <ToggleMode />
-        </div>
-      </header>
-    </div>
+          <div className=" flex items-center gap-2">
+            <Search />
+            <UserIcon />
+            <ToggleMode />
+          </div>
+        </header>
+        <Divider />
+      </nav>
+    </>
   )
 }

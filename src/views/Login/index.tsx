@@ -2,8 +2,12 @@ import type { FC } from 'react'
 import { Button, Card, CardBody, Input } from '@nextui-org/react'
 import { LandingIntro } from './components/LandingIntro'
 import { ToggleMode } from '@/components/ToggleMode'
+import { router } from '@/router/router'
 
 export const Login: FC = () => {
+  const handleClick = () => {
+    router.navigate('/home')
+  }
   return (
     <div className="w-full h-screen flex items-center justify-center cursor-default">
       <Card isBlurred className=" bg-content1">
@@ -17,7 +21,7 @@ export const Login: FC = () => {
               </h6>
               <Input type="text" placeholder="username" size="sm" />
               <Input type="password" placeholder="password" size="sm" />
-              <Button>Login</Button>
+              <Button onClick={handleClick}>Login</Button>
             </div>
           </div>
         </CardBody>
