@@ -3,6 +3,7 @@ import { Navigate, createBrowserRouter } from 'react-router-dom'
 
 const Login = lazy(() => import('@/views/Login').then(r => ({ default: r.Login })))
 const Home = lazy(() => import('@/views/Home').then(r => ({ default: r.Home })))
+const Project = lazy(() => import('@/views/Project').then(r => ({ default: r.Project })))
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
   {
     path: '/home',
     element: <Home />,
+  },
+  {
+    path: '/project/:projectId',
+    element: <Project />,
   },
   // 404 route
   {

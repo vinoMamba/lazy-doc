@@ -1,6 +1,7 @@
 import { Listbox, ListboxItem } from '@nextui-org/react'
 import { type FC, useState } from 'react'
 import { SvgIcon } from '@/components/Icon'
+import { router } from '@/router/router'
 
 export const ApiList: FC = () => {
   const [currentIndex, setCurrentIndex] = useState('-1')
@@ -9,10 +10,15 @@ export const ApiList: FC = () => {
     title: `Item ${i}`,
     descrption: `Description ${i}`,
   }))
+
+  const handleItemCLick = (id: string) => {
+    router.navigate(`/project/${id}`)
+  }
   return (
     <Listbox aria-label="api list" items={list} className="mt-2 border-small px-1 py-2 rounded-small border-default-200">
       {item => (
         <ListboxItem
+          onClick={() => handleItemCLick(item.id)}
           title={item.title}
           description={item.descrption}
           key={item.id}
