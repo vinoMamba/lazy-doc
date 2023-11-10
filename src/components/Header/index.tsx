@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { Divider } from '@nextui-org/react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react'
 import { UserIcon } from './compoents/UserIcon'
 import { Search } from './compoents/Search'
 import { Logo } from '@/components/Logo'
@@ -8,17 +8,22 @@ import { ToggleMode } from '@/components/ToggleMode'
 export const Header: FC = () => {
   return (
     <>
-      <nav className=" z-50 flex flex-col items-center justify-center sticky top-0 inset-x-0 backdrop-blur-lg bg-background/50 backdrop-saturate-50">
-        <header className=" max-w-[1280px] h-16 flex items-center justify-between w-full">
+      <Navbar isBordered>
+        <NavbarBrand>
           <Logo />
-          <div className=" flex items-center gap-2">
+        </NavbarBrand>
+        <NavbarContent className="hidden sm:flex gap-4" justify="end">
+          <NavbarItem>
             <Search />
+          </NavbarItem>
+          <NavbarItem isActive>
             <UserIcon />
+          </NavbarItem>
+          <NavbarItem>
             <ToggleMode />
-          </div>
-        </header>
-        <Divider />
-      </nav>
+          </NavbarItem>
+        </NavbarContent>
+      </Navbar>
     </>
   )
 }

@@ -1,22 +1,28 @@
 import type { Selection } from '@nextui-org/react'
-import { Listbox, ListboxItem, ListboxSection } from '@nextui-org/react'
+import { Divider, Listbox, ListboxItem } from '@nextui-org/react'
 import { useState } from 'react'
 import type { FC } from 'react'
 import { SvgIcon } from '@/components/Icon'
 
+const SectionTitle: FC = () => (
+  <>
+    <div className="flex items-center justify-between my-4">
+      <span className="ml-1">Groups</span>
+      <SvgIcon icon="material-symbols:create-new-folder" className=" text-xl" />
+    </div>
+    <Divider />
+  </>
+)
+
 export const SideNav: FC = () => {
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(['1']))
   const list = [
-    { id: '1', name: 'Top Project', icon: 'material-symbols:align-vertical-top-rounded' },
-    { id: '2', name: 'All Project', icon: 'material-symbols:ballot' },
-    { id: '3', name: 'Star Project', icon: 'ph:star' },
+    { id: 'top', name: 'Top Projects', icon: 'material-symbols:align-vertical-top-rounded' },
+    { id: 'all', name: 'All Projects', icon: 'material-symbols:ballot' },
+    { id: 'star', name: 'Star Projects', icon: 'ph:star' },
   ]
 
-  const list2 = [
-    { id: '4', name: 'Top Project', icon: 'material-symbols:align-vertical-top-rounded' },
-    { id: '5', name: 'All Project', icon: 'material-symbols:ballot' },
-    { id: '6', name: 'Star Project', icon: 'ph:star' },
-  ]
+  const list2 = Array.from({ length: 100 }, (_, i) => ({ id: `${i}`, name: `Group ${i + 1}` }))
 
   return (
     <div className="w-full border-small px-1 py-2 rounded-small border-default-200">
@@ -27,30 +33,39 @@ export const SideNav: FC = () => {
         disallowEmptySelection
         onSelectionChange={setSelectedKeys}
       >
-        <ListboxSection showDivider>
-          {
-            list.map(item => (
-              <ListboxItem
-                key={item.id}
-                startContent={<SvgIcon icon={item.icon} className=" text-lg" />}
-              >
-                {item.name}
-              </ListboxItem>
-            ))
-          }
-        </ListboxSection>
-        <ListboxSection title="Groups">
-          {
-            list2.map(item => (
-              <ListboxItem
-                key={item.id}
-                startContent={<SvgIcon icon="ic:round-tag" className=" text-lg" />}
-              >
-                {item.name}
-              </ListboxItem>
-            ))
-          }
-        </ListboxSection>
+        {
+          list.map(item => (
+            <ListboxItem
+              key={item.id}
+              startContent={<SvgIcon icon={item.icon} className=" text-lg" />}
+            >
+              {item.name}
+            </ListboxItem>
+          ))
+        }
+      </Listbox>
+      <Divider className="my-2" />
+      <Listbox
+        topContent={(<SectionTitle />)}
+        aria-label="group listbox"
+        selectionMode="single"
+        selectedKeys={selectedKeys}
+        disallowEmptySelection
+        onSelectionChange={setSelectedKeys}
+        classNames={{
+          list: 'max-h-[500px] overflow-y-scroll',
+        }}
+      >
+        {
+          list2.map(item => (
+            <ListboxItem
+              key={item.id}
+              startContent={<SvgIcon icon="ic:twotone-tag" className=" text-lg" />}
+            >
+              {item.name}
+            </ListboxItem>
+          ))
+        }
       </Listbox>
     </div>
   )

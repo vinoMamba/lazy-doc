@@ -1,0 +1,33 @@
+import { Listbox, ListboxItem } from '@nextui-org/react'
+import { type FC, useState } from 'react'
+import { SvgIcon } from '@/components/Icon'
+
+export const ApiList: FC = () => {
+  const [currentIndex, setCurrentIndex] = useState('-1')
+  const list = Array.from({ length: 100 }, (_, i) => ({
+    id: i.toString(),
+    title: `Item ${i}`,
+    descrption: `Description ${i}`,
+  }))
+  return (
+    <Listbox aria-label="api list" items={list} className="mt-2 border-small px-1 py-2 rounded-small border-default-200">
+      {item => (
+        <ListboxItem
+          title={item.title}
+          description={item.descrption}
+          key={item.id}
+          startContent={<SvgIcon icon="file-icons:microsoft-project" className=" text-4xl" />}
+          endContent={(
+            <SvgIcon
+              icon="icon-park-solid:more-three"
+              className={`${currentIndex === item.id ? '' : 'hidden'} text-lg`}
+            />
+          )}
+          showDivider
+          onMouseEnter={() => setCurrentIndex(item.id)}
+        >
+        </ListboxItem>
+      )}
+    </Listbox>
+  )
+}
