@@ -29,7 +29,7 @@ export const Search: FC = () => {
           </div>
           <Divider />
           <div className="w-full  px-1 py-2">
-            <Listbox color="primary">
+            <Listbox color="primary" aria-label="search list">
               <ListboxSection showDivider title="Recent">
                 <ListboxItem key="r">Recent</ListboxItem>
               </ListboxSection>

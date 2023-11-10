@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { SideNav } from './components/SideNav'
 import { Header } from '@/components/Header'
 
 export const Home: FC = () => {
@@ -7,7 +8,8 @@ export const Home: FC = () => {
       <Header />
       <section className="max-w-[1280px] m-auto grid grid-cols-4">
         <div className="relative overflow-visible z-10">
-          <aside className="sticky top-16 h-[calc(100vh-65px)] w-full bg-default-100">
+          <aside className="sticky top-16 h-[calc(100vh-65px)] w-full p-2">
+            <SideNav />
           </aside>
         </div>
         <div className="col-span-3 bg-default-50 h-screen"></div>
