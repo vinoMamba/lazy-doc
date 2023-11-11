@@ -6,7 +6,7 @@ import { router } from '@/router/router'
 
 export const Login: FC = () => {
   const handleClick = () => {
-    router.navigate('/home')
+    router.navigate('/project/list')
   }
   return (
     <div className="w-full h-screen flex items-center justify-center cursor-default">

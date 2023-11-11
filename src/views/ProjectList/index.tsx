@@ -3,7 +3,7 @@ import { type FC, useState } from 'react'
 import { SvgIcon } from '@/components/Icon'
 import { router } from '@/router/router'
 
-export const ApiList: FC = () => {
+export const ProjectList: FC = () => {
   const [currentIndex, setCurrentIndex] = useState('-1')
   const list = Array.from({ length: 100 }, (_, i) => ({
     id: i.toString(),
@@ -12,7 +12,7 @@ export const ApiList: FC = () => {
   }))
 
   const handleItemCLick = (id: string) => {
-    router.navigate(`/project/${id}`)
+    router.navigate(`/project/item/${id}`)
   }
   return (
     <Listbox aria-label="api list" items={list} className="mt-2 border-small px-1 py-2 rounded-small border-default-200">

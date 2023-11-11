@@ -2,8 +2,9 @@ import { lazy } from 'react'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 
 const Login = lazy(() => import('@/views/Login').then(r => ({ default: r.Login })))
-const Home = lazy(() => import('@/views/Home').then(r => ({ default: r.Home })))
 const Project = lazy(() => import('@/views/Project').then(r => ({ default: r.Project })))
+const ProjectList = lazy(() => import('@/views/ProjectList').then(r => ({ default: r.ProjectList })))
+const ProejctItem = lazy(() => import('@/views/ProjectItem').then(r => ({ default: r.ProjectItem })))
 
 export const router = createBrowserRouter([
   {
@@ -16,12 +17,18 @@ export const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: '/home',
-    element: <Home />,
-  },
-  {
-    path: '/project/:projectId',
+    path: '/project',
     element: <Project />,
+    children: [
+      {
+        path: 'list',
+        element: <ProjectList />,
+      },
+      {
+        path: 'item/:id',
+        element: <ProejctItem />,
+      },
+    ],
   },
   // 404 route
   {
