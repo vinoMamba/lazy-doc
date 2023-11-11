@@ -25,7 +25,7 @@ export const SideNav: FC = () => {
   const list2 = Array.from({ length: 100 }, (_, i) => ({ id: `${i}`, name: `Group ${i + 1}` }))
 
   return (
-    <div className="w-full border-small px-1 py-2 rounded-small border-default-200">
+    <>
       <Listbox
         aria-label="category listbox"
         selectionMode="single"
@@ -67,6 +67,6 @@ export const SideNav: FC = () => {
           ))
         }
       </Listbox>
-    </div>
+    </>
   )
 }

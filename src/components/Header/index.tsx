@@ -1,11 +1,10 @@
-import type { FC } from 'react'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react'
 import { UserIcon } from './compoents/UserIcon'
 import { Search } from './compoents/Search'
 import { Logo } from '@/components/Logo'
 import { ToggleMode } from '@/components/ToggleMode'
 
-export const Header: FC = () => {
+export function Header() {
   return (
     <>
       <Navbar isBordered>

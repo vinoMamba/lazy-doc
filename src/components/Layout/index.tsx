@@ -1,35 +1,22 @@
-import { Children, type FC, type PropsWithChildren, useEffect } from 'react'
-import { Header } from '@/components/Header'
+import { Children, type FC, type PropsWithChildren, isValidElement } from 'react'
+import { Header } from '../Header'
 
-export const LayoutAside: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <>
-      {children}
-    </>
-  )
+export const LayoutSideNav: FC<PropsWithChildren> = ({ children }) => {
+  return <div className="w-full border-small px-1 py-2 rounded-small border-default-200">{children}</div>
 }
 
-export const LayoutMain: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <>
-      {children}
-    </>
-  )
+export const LayoutSideMain: FC<PropsWithChildren> = ({ children }) => {
+  return children
 }
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
-  const aside = Children.map(children, (child) => {
-    if (child.type === LayoutAside)
+  const layoutSideNav = Children.map(children, (child) => {
+    if (isValidElement(child) && child.type === LayoutSideNav)
       return child
-    else
-      return null
   })
-
-  const main = Children.map(children, (child) => {
-    if (child.type === LayoutMain)
+  const layoutMain = Children.map(children, (child) => {
+    if (isValidElement(child) && child.type === LayoutSideMain)
       return child
-    else
-      return null
   })
   return (
     <div>
@@ -37,11 +24,11 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
       <section className=" max-w-screen-lg m-auto grid grid-cols-4">
         <div className="relative overflow-visible z-10">
           <aside className="sticky top-16 h-[calc(100vh-65px)] w-full p-2">
-            {aside}
+            {layoutSideNav}
           </aside>
         </div>
         <div className="col-span-3 bg-default-50 ">
-          {main}
+          {layoutMain}
         </div>
       </section>
     </div>
