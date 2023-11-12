@@ -1,10 +1,12 @@
 import type { FC } from 'react'
-import { Button, Divider } from '@nextui-org/react'
+import { Button, Divider, ScrollShadow } from '@nextui-org/react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { SideNav } from './compoents/SideNav'
 import { Layout, LayoutSideMain, LayoutSideNav } from '@/components/Layout'
 import { SvgIcon } from '@/components/Icon'
 import { router } from '@/router/router'
+import { Tree } from '@/components/Tree'
+import { treeData } from '@/components/Tree/mock'
 
 export const Project: FC = () => {
   const location = useLocation()
@@ -36,6 +38,10 @@ export const Project: FC = () => {
                   <Divider orientation="vertical" />
                   <SvgIcon icon="ic:sharp-more-horiz" className=" text-xl" />
                 </div>
+                <Divider className="my-2" />
+                <ScrollShadow hideScrollBar className=" max-h-[600px]">
+                  <Tree data={treeData} />
+                </ScrollShadow>
               </>
             )
         }
