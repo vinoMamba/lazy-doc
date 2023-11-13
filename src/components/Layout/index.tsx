@@ -27,7 +27,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
             {layoutSideNav}
           </aside>
         </div>
-        <div className="col-span-3 bg-default-50 ">
+        <div className="col-span-3">
           {layoutMain}
         </div>
       </section>
