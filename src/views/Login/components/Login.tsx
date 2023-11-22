@@ -1,4 +1,4 @@
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input, Link } from '@nextui-org/react'
 import { type FC, useContext, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 import { LoginFetcher, type LoginParams } from '@/api/user'
@@ -6,7 +6,7 @@ import { router } from '@/router/router'
 import { LoginContext } from '@/store/useLoginContext'
 
 export const Login: FC = () => {
-  const { username } = useContext(LoginContext)!
+  const { username, setCurrentTab } = useContext(LoginContext)!
   const [loginParams, setLoginParams] = useState<LoginParams>({
     username: '',
     password: '',
@@ -43,7 +43,14 @@ export const Login: FC = () => {
           setLoginParams(prev => ({ ...prev, password: e.target.value }))
         }}
       />
-      <Button onClick={() => trigger(loginParams)}>login</Button>
+      <p className="text-center text-small">
+        Need to create an account?
+        {' '}
+        <Link size="sm" onPress={() => setCurrentTab('register')}>
+          Register
+        </Link>
+      </p>
+      <Button color="secondary" onClick={() => trigger(loginParams)}>login</Button>
     </div>
   )
 }
