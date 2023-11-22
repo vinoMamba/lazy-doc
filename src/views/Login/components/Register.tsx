@@ -71,7 +71,7 @@ export const Register: FC = () => {
             onClose => (
               <ModalBody>
                 <p className="text-center text-success text-lg font-bold">Register Success!</p>
-                <Button variant="light" onClick={() => handleClick(onClose)}>Goto Login</Button>
+                <Button onClick={() => handleClick(onClose)}>Goto Login</Button>
               </ModalBody>
             )
           }
