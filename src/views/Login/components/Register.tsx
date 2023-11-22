@@ -1,4 +1,4 @@
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input, Modal, ModalBody, ModalContent, useDisclosure } from '@nextui-org/react'
 import { useContext, useEffect, useState } from 'react'
 import type { FC } from 'react'
 import useSWRMutation from 'swr/mutation'
@@ -6,7 +6,8 @@ import { type RegisterParams, registerFetcher } from '@/api/user'
 import { LoginContext } from '@/store/useLoginContext'
 
 export const Register: FC = () => {
-  const { setCurrentTab } = useContext(LoginContext)!
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { setCurrentTab, setUsername } = useContext(LoginContext)!
   const [registerParams, setRegisterParams] = useState<RegisterParams>({
     username: '',
     password: '',
@@ -17,9 +18,15 @@ export const Register: FC = () => {
 
   useEffect(() => {
     if (data && data.code === 0) {
-      setCurrentTab('login')
+      onOpen()
     }
   }, [data])
+
+  const handleClick = (onClose: () => void) => {
+    setCurrentTab('login')
+    setUsername(data?.data.username || '')
+    onClose()
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -51,6 +58,25 @@ export const Register: FC = () => {
         }}
       />
       <Button onClick={() => trigger(registerParams)} variant="faded">Register</Button>
+      <Modal
+        backdrop="blur"
+        hideCloseButton
+        size="xs"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="top"
+      >
+        <ModalContent>
+          {
+            onClose => (
+              <ModalBody>
+                <p className="text-center text-success text-lg font-bold">Register Success!</p>
+                <Button variant="light" onClick={() => handleClick(onClose)}>Goto Login</Button>
+              </ModalBody>
+            )
+          }
+        </ModalContent>
+      </Modal>
     </div>
   )
 }
