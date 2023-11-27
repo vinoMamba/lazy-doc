@@ -6,6 +6,7 @@ import { router } from '@/router/router'
 import { LoginContext } from '@/store/useLoginContext'
 
 export const Login: FC = () => {
+  const [disabled, setDisabled] = useState(true)
   const { username, setCurrentTab } = useContext(LoginContext)!
   const [loginParams, setLoginParams] = useState<LoginParams>({
     username: '',
@@ -13,8 +14,10 @@ export const Login: FC = () => {
   })
 
   const { trigger, data } = useSWRMutation('/api/user/login', LoginFetcher)
+
   useEffect(() => {
     if (data && data.code === 0) {
+      window.localStorage.setItem('token', data.data.token)
       router.navigate('/project/list')
     }
   }, [data])
@@ -23,11 +26,25 @@ export const Login: FC = () => {
     setLoginParams(prev => ({ ...prev, username }))
   }, [username])
 
+  useEffect(() => {
+    setDisabled(
+      loginParams.username === ''
+      || loginParams.password === '',
+    )
+  }, [loginParams])
+
+  const handleLogin = () => {
+    trigger(loginParams)
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <Input
+        labelPlacement="outside"
+        label="username"
+        isRequired
         type="text"
-        placeholder="username"
+        placeholder="Enter your username"
         size="sm"
         value={loginParams.username}
         onChange={(e) => {
@@ -35,8 +52,11 @@ export const Login: FC = () => {
         }}
       />
       <Input
+        labelPlacement="outside"
+        label="password"
+        isRequired
         type="password"
-        placeholder="password"
+        placeholder="Enter your password"
         size="sm"
         value={loginParams.password}
         onChange={(e) => {
@@ -50,7 +70,7 @@ export const Login: FC = () => {
           Register
         </Link>
       </p>
-      <Button color="secondary" onClick={() => trigger(loginParams)}>login</Button>
+      <Button isDisabled={disabled} color="secondary" onClick={handleLogin}>login</Button>
     </div>
   )
 }
