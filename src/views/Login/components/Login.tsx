@@ -1,9 +1,8 @@
 import { Button, Input, Link } from '@nextui-org/react'
 import { type FC, useContext, useEffect, useState } from 'react'
-import useSWRMutation from 'swr/mutation'
-import { LoginFetcher, type LoginParams } from '@/api/user'
-import { router } from '@/router/router'
+import type { LoginParams } from '@/api/user'
 import { LoginContext } from '@/store/useLoginContext'
+import { useLogin } from '@/hooks/useLogin'
 
 export const Login: FC = () => {
   const [disabled, setDisabled] = useState(true)
@@ -13,14 +12,7 @@ export const Login: FC = () => {
     password: '',
   })
 
-  const { trigger, data } = useSWRMutation('/api/user/login', LoginFetcher)
-
-  useEffect(() => {
-    if (data && data.code === 0) {
-      window.localStorage.setItem('token', data.data.token)
-      router.navigate('/project/list')
-    }
-  }, [data])
+  const { handleLogin } = useLogin()
 
   useEffect(() => {
     setLoginParams(prev => ({ ...prev, username }))
@@ -32,10 +24,6 @@ export const Login: FC = () => {
       || loginParams.password === '',
     )
   }, [loginParams])
-
-  const handleLogin = () => {
-    trigger(loginParams)
-  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -70,7 +58,7 @@ export const Login: FC = () => {
           Register
         </Link>
       </p>
-      <Button isDisabled={disabled} color="secondary" onClick={handleLogin}>login</Button>
+      <Button isDisabled={disabled} color="secondary" onClick={() => handleLogin(loginParams)}>login</Button>
     </div>
   )
 }
