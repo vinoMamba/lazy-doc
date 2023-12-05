@@ -22,7 +22,7 @@ export function useLogin() {
     if (data) {
       success('登录成功')
       setUserInfo(data)
-      router.navigate('/project')
+      router.navigate('/project/list')
     }
   }, [data])
 

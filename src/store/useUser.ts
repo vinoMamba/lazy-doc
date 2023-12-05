@@ -15,8 +15,10 @@ interface Action {
   setUserInfo: (userInfo: UserInfo) => void
 }
 
+const localUserInfo = window.localStorage.getItem('userInfo')
+
 export const useUser = create<State & Action>(set => ({
-  userInfo: null,
+  userInfo: JSON.parse(localUserInfo || 'null'),
   setUserInfo: (u: UserInfo) => {
     set({ userInfo: u })
     window.localStorage.setItem('userInfo', JSON.stringify(u))

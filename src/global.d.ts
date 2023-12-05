@@ -3,3 +3,7 @@ declare interface Result<T = any> {
   data: T
   message: string
 }
+
+declare interface JSONValue {
+  [key: string]: any
+}

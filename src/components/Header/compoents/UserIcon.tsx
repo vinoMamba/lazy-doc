@@ -1,9 +1,18 @@
 import type { FC } from 'react'
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, User, useDisclosure } from '@nextui-org/react'
+import { ChangePwd } from './ChangePassword'
 import { SvgIcon } from '@/components/Icon'
+import { useUser } from '@/store/useUser'
+import { router } from '@/router/router'
 
 export const UserIcon: FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [u] = useUser(s => [s.userInfo])
+  const handleLogout = () => {
+    window.localStorage.removeItem('token')
+    window.localStorage.removeItem('userInfo')
+    router.navigate('/login')
+  }
   return (
     <>
       <Button isIconOnly onClick={onOpen} size="sm" variant="flat">
@@ -15,17 +24,17 @@ export const UserIcon: FC = () => {
           <ModalBody>
             <div>
               <User
-                name="Vino Wang"
-                description="vino0908@outlook.com"
+                name={u?.username}
+                description={u?.email}
                 avatarProps={{
-                  src: 'https://i.pravatar.cc/150?u=a04258114e29026702d',
+                  src: u?.avatar,
                 }}
               />
             </div>
           </ModalBody>
           <ModalFooter className=" flex-col justify-start">
-            <Button variant="ghost" size="sm"> Change Password</Button>
-            <Button variant="ghost" size="sm">Logout</Button>
+            <ChangePwd />
+            <Button variant="ghost" size="sm" onClick={handleLogout}>Logout</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
