@@ -9,7 +9,7 @@ import { LoginContext } from '@/store/useLoginContext'
 
 export const LoginPaner: FC = () => {
   const [currentTab, setCurrentTab] = useState<'login' | 'register'>('login')
-  const [username, setUsername] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
   return (
     <div className="w-full h-screen flex justify-center items-start cursor-default relative">
       <Card isBlurred className=" bg-content1 absolute top-1/4">
@@ -22,8 +22,8 @@ export const LoginPaner: FC = () => {
               </div>
               <LoginContext.Provider value={{
                 setCurrentTab,
-                username,
-                setUsername,
+                email,
+                setEmail,
               }}
               >
                 <Tabs

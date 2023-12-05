@@ -12,12 +12,14 @@ interface State {
 }
 
 interface Action {
-  setUserInfo: (userInfo: any) => void
+  setUserInfo: (userInfo: UserInfo) => void
 }
 
 export const useUser = create<State & Action>(set => ({
   userInfo: null,
   setUserInfo: (u: UserInfo) => {
     set({ userInfo: u })
+    window.localStorage.setItem('userInfo', JSON.stringify(u))
+    window.localStorage.setItem('token', u.token)
   },
 }))

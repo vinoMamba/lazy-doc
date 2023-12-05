@@ -1,41 +1,28 @@
-import { Button, Input, Link, Modal, ModalBody, ModalContent, useDisclosure } from '@nextui-org/react'
+import { Button, Input, Link } from '@nextui-org/react'
 import { useContext, useEffect, useState } from 'react'
 import type { FC } from 'react'
-import useSWRMutation from 'swr/mutation'
-import { type RegisterParams, registerFetcher } from '@/api/user'
+import type { RegisterParams } from '@/api/user'
 import { LoginContext } from '@/store/useLoginContext'
+import { useRegister } from '@/hooks/useRegister'
 
 export const Register: FC = () => {
   const [disabled, setDisabled] = useState(true)
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const { setCurrentTab, setUsername } = useContext(LoginContext)!
+  const { setCurrentTab } = useContext(LoginContext)!
   const [registerParams, setRegisterParams] = useState<RegisterParams>({
-    username: '',
+    email: '',
     password: '',
     confirmPassword: '',
   })
 
-  const { trigger, data } = useSWRMutation('/api/user/register', registerFetcher)
-
-  useEffect(() => {
-    if (data && data.code === 0) {
-      onOpen()
-    }
-  }, [data])
+  const { handleRegister } = useRegister()
 
   useEffect(() => {
     setDisabled(
-      registerParams.username === ''
+      registerParams.email === ''
       || registerParams.password === ''
       || registerParams.confirmPassword === '',
     )
   }, [registerParams])
-
-  const handleClick = (onClose: () => void) => {
-    setCurrentTab('login')
-    setUsername(data?.data.username || '')
-    onClose()
-  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -45,9 +32,9 @@ export const Register: FC = () => {
         type="text"
         placeholder="Enter your Email"
         size="sm"
-        value={registerParams.username}
+        value={registerParams.email}
         onChange={(e) => {
-          setRegisterParams(prev => ({ ...prev, username: e.target.value }))
+          setRegisterParams(prev => ({ ...prev, email: e.target.value }))
         }}
       />
       <Input
@@ -84,29 +71,10 @@ export const Register: FC = () => {
       <Button
         color="secondary"
         isDisabled={disabled}
-        onClick={() => trigger(registerParams)}
+        onClick={() => handleRegister(registerParams)}
       >
         Register
       </Button>
-      <Modal
-        backdrop="blur"
-        hideCloseButton
-        size="xs"
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        placement="top"
-      >
-        <ModalContent>
-          {
-            onClose => (
-              <ModalBody>
-                <p className="text-center text-success text-lg font-bold">Register Success!</p>
-                <Button variant="light" onClick={() => handleClick(onClose)}>Goto Login</Button>
-              </ModalBody>
-            )
-          }
-        </ModalContent>
-      </Modal>
     </div>
   )
 }

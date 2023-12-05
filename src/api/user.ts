@@ -1,7 +1,8 @@
 import axios from 'axios'
+import type { UserInfo } from '@/store/useUser'
 
 interface BaseParams {
-  username: string
+  email: string
   password: string
 }
 
@@ -10,16 +11,14 @@ export interface RegisterParams extends BaseParams {
 }
 
 export async function registerFetcher(url: string, { arg }: { arg: RegisterParams }) {
-  const res = await axios.post<Result<{ email: string; username: string }>>(url, arg)
+  const res = await axios.post<{ email: string }>(url, arg)
   return res.data
 }
 
 export interface LoginParams extends BaseParams { }
-export interface LoginResult extends BaseParams {
-  token: string
-}
+export interface LoginResult extends UserInfo { }
 
 export async function LoginFetcher(url: string, { arg }: { arg: LoginParams }) {
-  const res = await axios.post<Result<LoginResult>>(url, arg)
+  const res = await axios.post<LoginResult>(url, arg)
   return res.data
 }

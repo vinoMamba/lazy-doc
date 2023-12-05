@@ -6,21 +6,21 @@ import { useLogin } from '@/hooks/useLogin'
 
 export const Login: FC = () => {
   const [disabled, setDisabled] = useState(true)
-  const { username, setCurrentTab } = useContext(LoginContext)!
+  const { email, setCurrentTab } = useContext(LoginContext)!
   const [loginParams, setLoginParams] = useState<LoginParams>({
-    username: '',
+    email: '',
     password: '',
   })
 
   const { handleLogin } = useLogin()
 
   useEffect(() => {
-    setLoginParams(prev => ({ ...prev, username }))
-  }, [username])
+    setLoginParams(prev => ({ ...prev, email }))
+  }, [email])
 
   useEffect(() => {
     setDisabled(
-      loginParams.username === ''
+      loginParams.email === ''
       || loginParams.password === '',
     )
   }, [loginParams])
@@ -34,9 +34,9 @@ export const Login: FC = () => {
         type="text"
         placeholder="Enter your username"
         size="sm"
-        value={loginParams.username}
+        value={loginParams.email}
         onChange={(e) => {
-          setLoginParams(prev => ({ ...prev, username: e.target.value }))
+          setLoginParams(prev => ({ ...prev, email: e.target.value }))
         }}
       />
       <Input
