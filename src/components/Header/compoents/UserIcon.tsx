@@ -7,20 +7,23 @@ import { router } from '@/router/router'
 
 export const UserIcon: FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
   const [u] = useUser(s => [s.userInfo])
+
   const handleLogout = () => {
     window.localStorage.removeItem('token')
     window.localStorage.removeItem('userInfo')
     router.navigate('/login')
   }
+
   return (
     <>
-      <Button isIconOnly onClick={onOpen} size="sm" variant="flat">
+      <Button isIconOnly onClick={onOpen} variant="flat" size="sm">
         <SvgIcon icon="mdi:account-circle" className="text-xl" />
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top" size="sm">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top">
         <ModalContent>
-          <ModalHeader>User Info</ModalHeader>
+          <ModalHeader>用户信息</ModalHeader>
           <ModalBody>
             <div>
               <User
@@ -34,7 +37,7 @@ export const UserIcon: FC = () => {
           </ModalBody>
           <ModalFooter className=" flex-col justify-start">
             <ChangePwd />
-            <Button variant="ghost" size="sm" onClick={handleLogout}>Logout</Button>
+            <Button variant="ghost" onClick={handleLogout}>退出登录</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

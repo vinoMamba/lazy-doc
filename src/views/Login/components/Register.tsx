@@ -27,11 +27,10 @@ export const Register: FC = () => {
   return (
     <div className="flex flex-col gap-4">
       <Input
-        label="Email"
+        label="邮箱"
         isRequired
         type="text"
-        placeholder="Enter your Email"
-        size="sm"
+        placeholder="请输入邮箱"
         value={registerParams.email}
         onChange={(e) => {
           setRegisterParams(prev => ({ ...prev, email: e.target.value }))
@@ -39,10 +38,9 @@ export const Register: FC = () => {
       />
       <Input
         isRequired
-        label="Password"
+        label="密码"
         type="password"
-        placeholder="Enter your password"
-        size="sm"
+        placeholder="请输入密码"
         value={registerParams.password}
         onChange={(e) => {
           setRegisterParams(prev => ({ ...prev, password: e.target.value }))
@@ -50,22 +48,20 @@ export const Register: FC = () => {
       />
       <Input
         isRequired
-        label="ConfirmPassword"
+        label="确认密码"
         type="password"
-        placeholder="Enter your password again"
-        size="sm"
+        placeholder="请再次输入密码"
         value={registerParams.confirmPassword}
-
         onChange={(e) => {
           setRegisterParams(prev => ({ ...prev, confirmPassword: e.target.value }))
         }}
       />
 
       <p className="text-center text-small">
-        Already have an account?
+        已经有账号了?
         {' '}
         <Link size="sm" onPress={() => setCurrentTab('login')}>
-          Login
+          去登录
         </Link>
       </p>
       <Button
@@ -73,7 +69,7 @@ export const Register: FC = () => {
         isDisabled={disabled}
         onClick={() => handleRegister(registerParams)}
       >
-        Register
+        注册
       </Button>
     </div>
   )

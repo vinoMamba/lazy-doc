@@ -33,10 +33,10 @@ export const LoginPaner: FC = () => {
                   size="sm"
                   variant="underlined"
                 >
-                  <Tab key="login" title="Login">
+                  <Tab key="login" title="登录">
                     <Login />
                   </Tab>
-                  <Tab key="register" title="Register">
+                  <Tab key="register" title="注册">
                     <Register />
                   </Tab>
                 </Tabs>

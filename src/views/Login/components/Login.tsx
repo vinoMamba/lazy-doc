@@ -28,37 +28,29 @@ export const Login: FC = () => {
   return (
     <div className="flex flex-col gap-4">
       <Input
-        labelPlacement="outside"
-        label="username"
+        label="邮箱"
         isRequired
         type="text"
-        placeholder="Enter your username"
-        size="sm"
+        placeholder="请输入邮箱"
         value={loginParams.email}
-        onChange={(e) => {
-          setLoginParams(prev => ({ ...prev, email: e.target.value }))
-        }}
+        onChange={e => setLoginParams(prev => ({ ...prev, email: e.target.value }))}
       />
       <Input
-        labelPlacement="outside"
-        label="password"
+        label="密码"
         isRequired
         type="password"
-        placeholder="Enter your password"
-        size="sm"
+        placeholder="请输入密码"
         value={loginParams.password}
-        onChange={(e) => {
-          setLoginParams(prev => ({ ...prev, password: e.target.value }))
-        }}
+        onChange={e => setLoginParams(prev => ({ ...prev, password: e.target.value }))}
       />
       <p className="text-center text-small">
-        Need to create an account?
+        还没有账号?
         {' '}
         <Link size="sm" onPress={() => setCurrentTab('register')}>
-          Register
+          去注册
         </Link>
       </p>
-      <Button isDisabled={disabled} color="secondary" onClick={() => handleLogin(loginParams)}>login</Button>
+      <Button isDisabled={disabled} color="secondary" onClick={() => handleLogin(loginParams)}>登录</Button>
     </div>
   )
 }

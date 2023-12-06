@@ -3,6 +3,8 @@ import { type FC, useState } from 'react'
 import type { ModifyPasswordParams } from '@/api/useModifyPwd'
 import { useModifyPwd } from '@/api/useModifyPwd'
 
+const MODIFY_PWD = '修改密码'
+
 export const ChangePwd: FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
@@ -15,36 +17,30 @@ export const ChangePwd: FC = () => {
 
   return (
     <>
-      <Button onClick={onOpen} size="sm" variant="ghost">
-        Modify Password
+      <Button onClick={onOpen} variant="ghost">
+        {MODIFY_PWD}
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top" size="sm">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top">
         <ModalContent>
-          <ModalHeader>Modify Password</ModalHeader>
+          <ModalHeader>{MODIFY_PWD}</ModalHeader>
           <ModalBody>
             <Input
               isRequired
               type="password"
-              placeholder="Enter your old password"
-              size="sm"
+              placeholder="原密码"
               value={modifyPwdParams.oldPassword}
-              onChange={(e) => {
-                setmodifyPwdParams(prev => ({ ...prev, oldPassword: e.target.value }))
-              }}
+              onChange={e => setmodifyPwdParams(prev => ({ ...prev, oldPassword: e.target.value }))}
             />
             <Input
               isRequired
               type="password"
-              placeholder="Enter your new password"
-              size="sm"
+              placeholder="新密码"
               value={modifyPwdParams.newPassword}
-              onChange={(e) => {
-                setmodifyPwdParams(prev => ({ ...prev, newPassword: e.target.value }))
-              }}
+              onChange={e => setmodifyPwdParams(prev => ({ ...prev, newPassword: e.target.value }))}
             />
           </ModalBody>
           <ModalFooter className=" flex-col justify-start">
-            <Button variant="ghost" size="sm" onClick={() => handleModifyPwd(modifyPwdParams)}>ok</Button>
+            <Button variant="ghost" onClick={() => handleModifyPwd(modifyPwdParams)}>确定</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
