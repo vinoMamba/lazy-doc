@@ -2,15 +2,12 @@ import { Listbox, ListboxItem } from '@nextui-org/react'
 import { type FC, useState } from 'react'
 import { SvgIcon } from '@/components/Icon'
 import { router } from '@/router/router'
+import { useProjectList } from '@/api/useProjectList'
 
 export const ProjectList: FC = () => {
   const [currentIndex, setCurrentIndex] = useState('-1')
 
-  const list = Array.from({ length: 100 }, (_, i) => ({
-    id: i.toString(),
-    title: `Item ${i}`,
-    descrption: `Description ${i}`,
-  }))
+  const { list } = useProjectList()
 
   const handleItemCLick = (id: string) => {
     router.navigate(`/project/item/${id}`)
@@ -20,8 +17,8 @@ export const ProjectList: FC = () => {
       {item => (
         <ListboxItem
           onClick={() => handleItemCLick(item.id)}
-          title={item.title}
-          description={item.descrption}
+          title={item.projectName}
+          description={item.projectDesc}
           key={item.id}
           startContent={<SvgIcon icon="file-icons:microsoft-project" className=" text-4xl" />}
           endContent={(
