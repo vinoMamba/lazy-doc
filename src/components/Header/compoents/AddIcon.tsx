@@ -1,8 +1,8 @@
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from '@nextui-org/react'
 import { type FC, useState } from 'react'
 import { SvgIcon } from '@/components/Icon'
-import type { CreateProjectParams } from '@/api/project'
-import { useCreateProject } from '@/hooks/useCreateProject'
+import type { CreateProjectParams } from '@/api/useCreateProject'
+import { useCreateProject } from '@/api/useCreateProject'
 
 export const AddIcon: FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -51,6 +51,7 @@ export const AddIcon: FC = () => {
               }}
             />
             <Select
+              label="Project Type"
               selectedKeys={[createProjectParams.isPublic]}
               onChange={(e) => {
                 setCreateProjectParams({

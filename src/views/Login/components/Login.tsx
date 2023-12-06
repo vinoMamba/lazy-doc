@@ -1,8 +1,8 @@
 import { Button, Input, Link } from '@nextui-org/react'
 import { type FC, useContext, useEffect, useState } from 'react'
-import type { LoginParams } from '@/api/user'
 import { LoginContext } from '@/store/useLoginContext'
-import { useLogin } from '@/hooks/useLogin'
+import type { LoginParams } from '@/api/useLogin'
+import { useLogin } from '@/api/useLogin'
 
 export const Login: FC = () => {
   const [disabled, setDisabled] = useState(true)

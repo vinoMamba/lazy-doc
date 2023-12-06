@@ -5,6 +5,7 @@ import { router } from '@/router/router'
 
 export const ProjectList: FC = () => {
   const [currentIndex, setCurrentIndex] = useState('-1')
+
   const list = Array.from({ length: 100 }, (_, i) => ({
     id: i.toString(),
     title: `Item ${i}`,

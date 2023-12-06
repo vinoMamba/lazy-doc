@@ -1,7 +1,7 @@
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react'
 import { type FC, useState } from 'react'
-import { useModifyPwd } from '@/hooks/useModifyPwd'
-import type { ModifyPasswordParams } from '@/api/user'
+import type { ModifyPasswordParams } from '@/api/useModifyPwd'
+import { useModifyPwd } from '@/api/useModifyPwd'
 
 export const ChangePwd: FC = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()

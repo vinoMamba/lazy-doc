@@ -1,12 +1,17 @@
 import useSWRMutation from 'swr/mutation'
 import { useEffect } from 'react'
-import { updatePwdFetcher } from '@/api/user'
-import type { ModifyPasswordParams } from '@/api/user'
 import { useNotify } from '@/store/useNotifyContext'
 import { router } from '@/router/router'
+import { useHttp } from '@/shared/http'
+
+export interface ModifyPasswordParams {
+  oldPassword: string
+  newPassword: string
+}
 
 export function useModifyPwd() {
-  const { trigger, data, error } = useSWRMutation('/api/user/password', updatePwdFetcher)
+  const { put } = useHttp()
+  const { trigger, data, error } = useSWRMutation('/api/user/password', (url, { arg }: { arg: ModifyPasswordParams }) => put(url, arg))
   const { success, error: errMsg } = useNotify()
 
   useEffect(() => {
