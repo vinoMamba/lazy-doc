@@ -26,7 +26,7 @@ export function useCreateProject() {
     }
   }, [data])
 
-  const handleCreateProject = (params: CreateProjectParams) => {
+  const handleCreateProject = async (params: CreateProjectParams) => {
     trigger(params)
   }
 

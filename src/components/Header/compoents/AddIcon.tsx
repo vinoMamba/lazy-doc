@@ -1,18 +1,44 @@
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from '@nextui-org/react'
-import { type FC, useState } from 'react'
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Select,
+  SelectItem,
+  useDisclosure,
+} from '@nextui-org/react'
+import { type FC, useEffect, useState } from 'react'
 import { SvgIcon } from '@/components/Icon'
 import type { CreateProjectParams } from '@/api/useCreateProject'
 import { useCreateProject } from '@/api/useCreateProject'
 
 export const AddIcon: FC = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [btnDisabled, setBtnDisabled] = useState(true)
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
   const [createProjectParams, setCreateProjectParams] = useState<CreateProjectParams>({
     projectDesc: '',
     projectName: '',
     isPublic: '0',
   })
 
+  useEffect(() => {
+    setBtnDisabled(!createProjectParams.projectName)
+  }, [createProjectParams.projectName])
+
   const { handleCreateProject } = useCreateProject()
+
+  const handleOk = async () => {
+    await handleCreateProject(createProjectParams)
+    setCreateProjectParams({
+      projectDesc: '',
+      projectName: '',
+      isPublic: '0',
+    })
+    onClose()
+  }
 
   return (
     <>
@@ -24,12 +50,13 @@ export const AddIcon: FC = () => {
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top">
         <ModalContent>
-          <ModalHeader>Create Project</ModalHeader>
+          <ModalHeader>创建项目</ModalHeader>
           <ModalBody>
             <Input
-              label="Project Name"
+              label="项目名称"
+              isRequired
               type="text"
-              placeholder="Enter Project Name"
+              placeholder="请输入项目名称"
               value={createProjectParams.projectName}
               onChange={(e) => {
                 setCreateProjectParams({
@@ -39,9 +66,9 @@ export const AddIcon: FC = () => {
               }}
             />
             <Input
-              label="Project Description"
+              label="项目描述"
               type="textarea"
-              placeholder="Enter Project Description"
+              placeholder="请输入项目描述"
               value={createProjectParams.projectDesc}
               onChange={(e) => {
                 setCreateProjectParams({
@@ -51,7 +78,7 @@ export const AddIcon: FC = () => {
               }}
             />
             <Select
-              label="Project Type"
+              label="项目类型"
               selectedKeys={[createProjectParams.isPublic]}
               onChange={(e) => {
                 setCreateProjectParams({
@@ -65,7 +92,7 @@ export const AddIcon: FC = () => {
             </Select>
           </ModalBody>
           <ModalFooter className=" flex-col justify-start">
-            <Button onClick={() => handleCreateProject(createProjectParams)}>Ok</Button>
+            <Button isDisabled={btnDisabled} onClick={handleOk}>创建</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
