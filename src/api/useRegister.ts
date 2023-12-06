@@ -1,8 +1,7 @@
 import useSWRMutation from 'swr/mutation'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNotify } from '@/store/useNotifyContext'
 import { verifyEmail } from '@/shared'
-import { LoginContext } from '@/store/useLoginContext'
 import { useHttp } from '@/shared/http'
 
 export interface RegisterParams {
@@ -13,7 +12,6 @@ export interface RegisterParams {
 
 export function useRegister() {
   const { post } = useHttp()
-  const { setCurrentTab, setEmail } = useContext(LoginContext)!
   const { trigger, data, error } = useSWRMutation('/api/user/register', (url, { arg }: { arg: RegisterParams }) => post<{ email: string }>(url, arg))
   const { success, error: errMsg } = useNotify()
 
@@ -26,8 +24,6 @@ export function useRegister() {
   useEffect(() => {
     if (data) {
       success('注册成功')
-      setCurrentTab('login')
-      setEmail(data.data.email || '')
     }
   }, [data])
 

@@ -1,13 +1,11 @@
-import { Button, Input, Link } from '@nextui-org/react'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { FC } from 'react'
-import { LoginContext } from '@/store/useLoginContext'
+import { Button, Input } from 'antd'
 import type { RegisterParams } from '@/api/useRegister'
 import { useRegister } from '@/api/useRegister'
 
 export const Register: FC = () => {
   const [disabled, setDisabled] = useState(true)
-  const { setCurrentTab } = useContext(LoginContext)!
   const [registerParams, setRegisterParams] = useState<RegisterParams>({
     email: '',
     password: '',
@@ -27,8 +25,6 @@ export const Register: FC = () => {
   return (
     <div className="flex flex-col gap-4">
       <Input
-        label="邮箱"
-        isRequired
         type="text"
         placeholder="请输入邮箱"
         value={registerParams.email}
@@ -37,8 +33,6 @@ export const Register: FC = () => {
         }}
       />
       <Input
-        isRequired
-        label="密码"
         type="password"
         placeholder="请输入密码"
         value={registerParams.password}
@@ -47,8 +41,6 @@ export const Register: FC = () => {
         }}
       />
       <Input
-        isRequired
-        label="确认密码"
         type="password"
         placeholder="请再次输入密码"
         value={registerParams.confirmPassword}
@@ -60,13 +52,12 @@ export const Register: FC = () => {
       <p className="text-center text-small">
         已经有账号了?
         {' '}
-        <Link size="sm" onPress={() => setCurrentTab('login')}>
+        <Button type="link">
           去登录
-        </Link>
+        </Button>
       </p>
       <Button
-        color="secondary"
-        isDisabled={disabled}
+        disabled={disabled}
         onClick={() => handleRegister(registerParams)}
       >
         注册

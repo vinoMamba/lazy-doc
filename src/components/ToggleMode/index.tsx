@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { Button } from '@nextui-org/react'
+import { Button } from 'antd'
 import { SvgIcon } from '@/components/Icon'
 import { useDarkMode } from '@/store/useDarkMode'
 
@@ -9,11 +9,14 @@ export const ToggleMode: FC = () => {
     setIsDarkMode(!isDarkMode)
   }
   return (
-    <Button isIconOnly onClick={handleChange} size="sm" variant="flat">
-      <SvgIcon
-        icon={isDarkMode ? 'fluent:weather-moon-20-filled' : 'fluent:weather-sunny-20-filled'}
-        className="text-xl"
-      />
-    </Button>
+    <Button
+      onClick={handleChange}
+      icon={(
+        <SvgIcon
+          icon={isDarkMode ? 'fluent:weather-moon-20-filled' : 'fluent:weather-sunny-20-filled'}
+          className="text-xl"
+        />
+      )}
+    />
   )
 }
