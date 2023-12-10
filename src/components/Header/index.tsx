@@ -1,32 +1,19 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react'
 import { UserIcon } from './compoents/UserIcon'
 import { Search } from './compoents/Search'
-import { AddIcon } from './compoents/AddIcon'
 import { Logo } from '@/components/Logo'
 import { ToggleMode } from '@/components/ToggleMode'
 
 export function Header() {
   return (
-    <>
-      <Navbar isBordered>
-        <NavbarBrand>
-          <Logo />
-        </NavbarBrand>
-        <NavbarContent className="hidden sm:flex gap-4" justify="end">
-          <NavbarItem>
-            <AddIcon />
-          </NavbarItem>
-          <NavbarItem>
-            <Search />
-          </NavbarItem>
-          <NavbarItem isActive>
-            <UserIcon />
-          </NavbarItem>
-          <NavbarItem>
-            <ToggleMode />
-          </NavbarItem>
-        </NavbarContent>
-      </Navbar>
-    </>
+    <nav className="flex z-40 w-full h-16 items-center justify-center sticky top-0 inset-x-0 backdrop-blur-lg border-b">
+      <header className=" flex items-center justify-between h-full w-full max-w-[1280px] ">
+        <Logo />
+        <div className=" flex items-center gap-2">
+          <Search />
+          <UserIcon />
+          <ToggleMode />
+        </div>
+      </header>
+    </nav>
   )
 }

@@ -1,5 +1,6 @@
 import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
+import { useMessage } from '@/hooks/useMessage'
 
 const http = axios.create({
   baseURL: '/',
@@ -18,10 +19,14 @@ http.interceptors.request.use((config) => {
 })
 
 export function useHttp() {
+  const { message } = useMessage()
   const httpRequest = async <T>(url: string, config: AxiosRequestConfig) => {
     return http.request<T>({
       url,
       ...config,
+    }).catch((err) => {
+      message.error(err.response?.data?.message || '请求失败')
+      throw err
     })
   }
   return {
@@ -37,6 +42,5 @@ export function useHttp() {
     remove: async <T>(path: string, config?: AxiosRequestConfig<unknown>) => {
       return httpRequest<T>(path, { ...config, method: 'delete' })
     },
-
   }
 }

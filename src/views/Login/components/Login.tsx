@@ -1,46 +1,54 @@
-import { type FC, useEffect, useState } from 'react'
-import { Button, Input } from 'antd'
-import type { LoginParams } from '@/api/useLogin'
-import { useLogin } from '@/api/useLogin'
+import { type FC, useEffect } from 'react'
+import { Button, Form, Input } from 'antd'
+import useSWRMutation from 'swr/mutation'
+import { type UserInfo, useUser } from '@/store/useUser'
+import { useHttp } from '@/shared/http'
+import { router } from '@/router/router'
+import { useLoginTab } from '@/store/useLoginTab'
+
+export interface LoginParams {
+  email: string
+  password: string
+}
+
+const { useForm } = Form
 
 export const Login: FC = () => {
-  const [disabled, setDisabled] = useState(true)
-  const [loginParams, setLoginParams] = useState<LoginParams>({
-    email: '',
-    password: '',
-  })
-
-  const { handleLogin } = useLogin()
+  const [form] = useForm()
+  const [email] = useLoginTab(s => [s.email])
+  const [setUserInfo] = useUser(s => [s.setUserInfo])
+  const { post } = useHttp()
+  const { trigger, data, isMutating } = useSWRMutation(
+    '/api/user/login',
+    (url, { arg }: { arg: LoginParams }) => post<UserInfo>(url, arg),
+  )
 
   useEffect(() => {
-    setDisabled(
-      loginParams.email === ''
-      || loginParams.password === '',
-    )
-  }, [loginParams])
+    if (data) {
+      setUserInfo(data.data)
+      router.navigate('/project/list')
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (email) {
+      form.setFieldsValue({ email, password: '' })
+    }
+  }, [email])
 
   return (
-    <div className="flex flex-col gap-4">
-      <Input
-        type="text"
-        placeholder="请输入邮箱"
-        value={loginParams.email}
-        onChange={e => setLoginParams(prev => ({ ...prev, email: e.target.value }))}
-      />
-      <Input
-        type="password"
-        placeholder="请输入密码"
-        value={loginParams.password}
-        onChange={e => setLoginParams(prev => ({ ...prev, password: e.target.value }))}
-      />
-      <p className="text-center text-small">
-        还没有账号?
-        {' '}
-        <Button type="link">
-          去注册
+    <Form<LoginParams> onFinish={v => trigger(v)} form={form}>
+      <Form.Item name="email" rules={[{ required: true, message: '请输入邮箱' }]}>
+        <Input placeholder="请输入邮箱" />
+      </Form.Item>
+      <Form.Item name="password" rules={[{ required: true, message: '请输入密码' }]}>
+        <Input.Password placeholder="请输入密码" />
+      </Form.Item>
+      <Form.Item>
+        <Button loading={isMutating} type="primary" htmlType="submit" className=" w-full">
+          登录
         </Button>
-      </p>
-      <Button disabled={disabled} onClick={() => handleLogin(loginParams)}>登录</Button>
-    </div>
+      </Form.Item>
+    </Form>
   )
 }

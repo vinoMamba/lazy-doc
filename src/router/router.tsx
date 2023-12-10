@@ -2,9 +2,9 @@ import { lazy } from 'react'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 
 const Login = lazy(() => import('@/views/Login').then(r => ({ default: r.LoginPaner })))
-const Project = lazy(() => import('@/views/Project').then(r => ({ default: r.Project })))
+const Layout = lazy(() => import('@/components/Layout').then(r => ({ default: r.BasicLayout })))
 const ProjectList = lazy(() => import('@/views/ProjectList').then(r => ({ default: r.ProjectList })))
-const ProejctItem = lazy(() => import('@/views/ProjectItem').then(r => ({ default: r.ProjectItem })))
+const Proejct = lazy(() => import('@/views/Project').then(r => ({ default: r.Project })))
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/project',
-    element: <Project />,
+    element: <Layout />,
     children: [
       {
         path: 'list',
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'item/:id',
-        element: <ProejctItem />,
+        element: <Proejct />,
       },
     ],
   },

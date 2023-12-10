@@ -5,8 +5,10 @@ import { LandingIntro } from './components/LandingIntro'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 import { ToggleMode } from '@/components/ToggleMode'
+import { useLoginTab } from '@/store/useLoginTab'
 
 export const LoginPaner: FC = () => {
+  const [currentTab, setTab] = useLoginTab(s => [s.currentTab, s.setTab])
   const items: TabsProps['items'] = [
     {
       key: 'login',
@@ -25,10 +27,15 @@ export const LoginPaner: FC = () => {
         <div className=" grid grid-cols-2 gap-4 py-8 px-4">
           <LandingIntro />
           <div className="flex flex-col gap-4 relative">
-            <div className=" absolute top-0 right-1">
+            <div className=" absolute top-0 right-1 z-50">
               <ToggleMode />
             </div>
-            <Tabs defaultActiveKey="1" items={items} />
+            <Tabs
+              defaultActiveKey="login"
+              items={items}
+              activeKey={currentTab}
+              onChange={e => setTab(e as 'login' | 'register')}
+            />
           </div>
         </div>
       </Card>

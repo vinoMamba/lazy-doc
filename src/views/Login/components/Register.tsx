@@ -1,67 +1,50 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import type { FC } from 'react'
-import { Button, Input } from 'antd'
-import type { RegisterParams } from '@/api/useRegister'
-import { useRegister } from '@/api/useRegister'
+import { Button, Form, Input } from 'antd'
+import useSWRMutation from 'swr/mutation'
+import { useHttp } from '@/shared/http'
+import { useMessage } from '@/hooks/useMessage'
+import { useLoginTab } from '@/store/useLoginTab'
+
+export interface RegisterParams {
+  email: string
+  password: string
+  confirmPassword: string
+}
 
 export const Register: FC = () => {
-  const [disabled, setDisabled] = useState(true)
-  const [registerParams, setRegisterParams] = useState<RegisterParams>({
-    email: '',
-    password: '',
-    confirmPassword: '',
-  })
-
-  const { handleRegister } = useRegister()
+  const [setLoginEmail, setTab] = useLoginTab(s => [s.setLoginEmail, s.setTab])
+  const { message } = useMessage()
+  const { post } = useHttp()
+  const { trigger, data, isMutating } = useSWRMutation(
+    '/api/user/register',
+    (url, { arg }: { arg: RegisterParams }) => post<{ email: string }>(url, arg),
+  )
 
   useEffect(() => {
-    setDisabled(
-      registerParams.email === ''
-      || registerParams.password === ''
-      || registerParams.confirmPassword === '',
-    )
-  }, [registerParams])
+    if (data) {
+      message.success('注册成功')
+      setLoginEmail(data.data.email)
+      setTab('login')
+    }
+  }, [data])
 
   return (
-    <div className="flex flex-col gap-4">
-      <Input
-        type="text"
-        placeholder="请输入邮箱"
-        value={registerParams.email}
-        onChange={(e) => {
-          setRegisterParams(prev => ({ ...prev, email: e.target.value }))
-        }}
-      />
-      <Input
-        type="password"
-        placeholder="请输入密码"
-        value={registerParams.password}
-        onChange={(e) => {
-          setRegisterParams(prev => ({ ...prev, password: e.target.value }))
-        }}
-      />
-      <Input
-        type="password"
-        placeholder="请再次输入密码"
-        value={registerParams.confirmPassword}
-        onChange={(e) => {
-          setRegisterParams(prev => ({ ...prev, confirmPassword: e.target.value }))
-        }}
-      />
-
-      <p className="text-center text-small">
-        已经有账号了?
-        {' '}
-        <Button type="link">
-          去登录
+    <Form<RegisterParams> onFinish={value => trigger(value)}>
+      <Form.Item name="email" rules={[{ required: true, message: '请输入邮箱' }]}>
+        <Input placeholder="请输入邮箱" />
+      </Form.Item>
+      <Form.Item name="password" rules={[{ required: true, message: '请输入密码' }]}>
+        <Input.Password placeholder="请输入密码" />
+      </Form.Item>
+      <Form.Item name="confirmPassword" rules={[{ required: true, message: '请确认密码' }]}>
+        <Input.Password placeholder="请确认密码" />
+      </Form.Item>
+      <Form.Item>
+        <Button loading={isMutating} type="primary" htmlType="submit" className=" w-full">
+          注册
         </Button>
-      </p>
-      <Button
-        disabled={disabled}
-        onClick={() => handleRegister(registerParams)}
-      >
-        注册
-      </Button>
-    </div>
+      </Form.Item>
+    </Form>
   )
 }
