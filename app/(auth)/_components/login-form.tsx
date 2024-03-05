@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useState, useTransition } from "react"
 import { LoginSchema } from "@/actions/login/schema"
+import { loginAction } from "@/actions/login"
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("")
@@ -25,6 +26,7 @@ export const LoginForm = () => {
     setError("")
     setSuccess("")
     startTransition(() => {
+      loginAction(values)
     })
   }
 
