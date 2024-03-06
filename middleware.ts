@@ -1,17 +1,9 @@
 import authConfig from "@/lib/auth.config"
 import NextAuth from "next-auth"
+import { DEFAULT_REDIRECT, apiAuthPrefix, authRoutes, publicRoutes } from "./config/routes"
 
 const { auth } = NextAuth({ ...authConfig })
 
-const publicRoutes = [
-  "/"
-]
-const authRoutes = [
-  "/login",
-  "/register"
-]
-
-const apiAuthPrefix = "/api/auth"
 
 export default auth((req) => {
   const { nextUrl, auth } = req
@@ -28,7 +20,7 @@ export default auth((req) => {
   console.log("isAuthRoutes", isAuthRoutes)
   if (isAuthRoutes) {
     if (isLoggedIn) {
-      return Response.redirect(new URL("/workbench", nextUrl))
+      return Response.redirect(new URL(DEFAULT_REDIRECT, nextUrl))
     }
     return
   }

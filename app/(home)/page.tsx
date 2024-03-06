@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { config } from "@/config";
+import { config } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Computer } from "lucide-react";
 import { Poppins } from "next/font/google";
