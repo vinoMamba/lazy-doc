@@ -6,13 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { useState, useTransition } from "react"
+import { useTransition } from "react"
 import { LoginSchema } from "@/actions/login/schema"
 import { loginAction } from "@/actions/login"
+import { toast } from "sonner"
 
 export const LoginForm = () => {
-  const [error, setError] = useState<string | undefined>("")
-  const [success, setSuccess] = useState<string | undefined>("")
   const [isPending, startTransition] = useTransition()
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -23,10 +22,14 @@ export const LoginForm = () => {
   })
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    setError("")
-    setSuccess("")
     startTransition(() => {
-      loginAction(values)
+      loginAction(values).then(data => {
+        if (data?.error) {
+          toast.error(data.error)
+          return
+        }
+        toast.success("Logged in successfully!")
+      })
     })
   }
 
