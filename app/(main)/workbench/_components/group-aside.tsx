@@ -1,6 +1,7 @@
-import { Folder, FolderMinus, Star } from "lucide-react"
+import { Folder, FolderMinus, Plus, Star } from "lucide-react"
 import { GroupList } from "./group-list"
 import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button"
 
 const commonList = [
   {
@@ -25,6 +26,12 @@ export const GroupAside = () => {
     <aside className="w-1/6 flex flex-col gap-y-1">
       <GroupList list={commonList} />
       <Separator />
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-sm text-muted-foreground">Groups</p>
+        <Button size="icon" asChild variant="ghost">
+          <Plus className=" w-[1.2rem] h-[1.2rem]"/>
+        </Button>
+      </div>
       <GroupList list={apiList} />
     </aside>
   )

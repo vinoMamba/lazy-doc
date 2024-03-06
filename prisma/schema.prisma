@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique @db.VarChar(64)
+  name      String   @db.VarChar(64)
+  password  String   @db.VarChar(255)
+  image     String?
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.TinyInt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  projectName String   @map("project_name") @db.VarChar(64)
+  description String?  @db.Text
+  isDeleted   Boolean  @default(false) @map("is_deleted") @db.TinyInt
+  isPublic    Boolean  @default(false) @map("is_public") @db.TinyInt
+  createdAt   DateTime @default(now()) @map("created_at")
+  createdBy String   @map("created_by")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+
+model Group {
+  id        String   @id @default(uuid())
+  groupName String   @map("group_name") @db.VarChar(64)
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.TinyInt
+  createdAt DateTime @default(now()) @map("created_at")
+  createdBy String   @map("created_by")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("groups")
+}

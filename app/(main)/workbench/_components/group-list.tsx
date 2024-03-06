@@ -17,7 +17,7 @@ export const GroupList = ({ list }: Props) => {
           href={`/workbench/${item.id}`}
           className={cn(
             buttonVariants({
-              variant: pathName === `/workbench/${item.id}` ? "default" : "ghost"
+              variant: pathName === `/workbench/${item.id}` ? "secondary" : "link"
             }),
           )}
         >
