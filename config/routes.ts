@@ -9,4 +9,4 @@ export const authRoutes = [
 
 export const apiAuthPrefix = "/api/auth"
 
-export const DEFAULT_REDIRECT = "/workbench"
+export const DEFAULT_REDIRECT = "/workbench/-1"
