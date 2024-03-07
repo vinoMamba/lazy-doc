@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { useTransition } from "react"
 import { RegisterSchema } from "@/actions/register/schema"
 import { toast } from "sonner"
 import { registerAction } from "@/actions/register"
@@ -33,9 +32,6 @@ export const RegisterForm = () => {
     }
   })
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    execute(values)
-  }
 
   return (
     <CardWrapper
@@ -45,7 +41,7 @@ export const RegisterForm = () => {
     >
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit((values) => onSubmit(values))}
+          onSubmit={form.handleSubmit(values => execute(values))}
           className=" space-y-6"
         >
           <div className=" space-y-4">

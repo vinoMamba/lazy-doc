@@ -6,14 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { useTransition } from "react"
 import { LoginSchema } from "@/actions/login/schema"
 import { loginAction } from "@/actions/login"
 import { toast } from "sonner"
 import { useAction } from "@/hooks/use-action"
 
 export const LoginForm = () => {
-  // const [isPending, startTransition] = useTransition()
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -31,10 +29,6 @@ export const LoginForm = () => {
     }
   })
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    execute(values)
-  }
-
   return (
     <CardWrapper
       headerLabel="Sign In"
@@ -43,7 +37,7 @@ export const LoginForm = () => {
     >
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit((values) => onSubmit(values))}
+          onSubmit={form.handleSubmit((values) => execute(values))}
           className=" space-y-6"
         >
           <div className=" space-y-4">
