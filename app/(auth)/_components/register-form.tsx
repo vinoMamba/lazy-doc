@@ -10,10 +10,11 @@ import { useTransition } from "react"
 import { RegisterSchema } from "@/actions/register/schema"
 import { toast } from "sonner"
 import { registerAction } from "@/actions/register"
+import { useAction } from "@/hooks/use-action"
+import { User } from "@prisma/client"
 
 
 export const RegisterForm = () => {
-  const [isPending, startTransition] = useTransition()
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -23,16 +24,17 @@ export const RegisterForm = () => {
     }
   })
 
+  const { execute, isPending } = useAction<z.infer<typeof RegisterSchema>, User>(registerAction, {
+    onSuccess: () => {
+      toast.success("Account created successfully")
+    },
+    onError: (error) => {
+      toast.error(error)
+    }
+  })
+
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    startTransition(() => {
-      registerAction(values).then(data=>{
-        if(data?.error){
-          toast.error(data.error)
-          return
-        }
-        toast.success("Account created successfully")
-      })
-    })
+    execute(values)
   }
 
   return (

@@ -10,9 +10,10 @@ import { useTransition } from "react"
 import { LoginSchema } from "@/actions/login/schema"
 import { loginAction } from "@/actions/login"
 import { toast } from "sonner"
+import { useAction } from "@/hooks/use-action"
 
 export const LoginForm = () => {
-  const [isPending, startTransition] = useTransition()
+  // const [isPending, startTransition] = useTransition()
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -21,16 +22,17 @@ export const LoginForm = () => {
     }
   })
 
+  const { isPending, execute } = useAction<z.infer<typeof LoginSchema>>(loginAction, {
+    onError: (error) => {
+      toast.error(error)
+    },
+    onSuccess: () => {
+      toast.success("Welcome back!")
+    }
+  })
+
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    startTransition(() => {
-      loginAction(values).then(data => {
-        if (data?.error) {
-          toast.error(data.error)
-          return
-        }
-        toast.success("Logged in successfully!")
-      })
-    })
+    execute(values)
   }
 
   return (

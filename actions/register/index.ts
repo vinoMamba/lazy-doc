@@ -4,8 +4,10 @@ import { RegisterSchema } from "./schema";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
 import { crypto } from "@/lib/crypto";
+import { Action } from "@/types/action";
+import { User } from "@prisma/client";
 
-export const registerAction = async (values: z.infer<typeof RegisterSchema>) => {
+export const registerAction: Action<z.infer<typeof RegisterSchema>, User> = async (values) => {
   const validateValues = RegisterSchema.safeParse(values);
   if (!validateValues.success) {
     return {
@@ -20,13 +22,16 @@ export const registerAction = async (values: z.infer<typeof RegisterSchema>) => 
     }
 
     const hashedPassword = crypto.encryptByAES(password)
-    await db.user.create({
+    const u = await db.user.create({
       data: {
         name,
         password: hashedPassword,
         email,
       },
     })
+    return {
+      data: u,
+    }
   } catch (error) {
     return { error: "Failed to create user" }
   }
