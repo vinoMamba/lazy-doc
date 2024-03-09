@@ -1,8 +1,7 @@
 import { Logo } from "@/components/logo"
+import { SettingsButton } from "@/components/settings/settings-button"
 import { ModeToggle } from "@/components/toggle-mode"
-import { Button } from "@/components/ui/button"
 import { UserButton } from "@/components/user-button"
-import { Settings } from "lucide-react"
 
 export const WorkbenchNav = () => {
   return (
@@ -11,9 +10,7 @@ export const WorkbenchNav = () => {
         <Logo />
         <div className="flex items-center justify-between gap-x-2 w-auto">
           <ModeToggle />
-          <Button size="icon" variant="outline">
-            <Settings className=" w-[1.2rem] h-[1.2rem]" />
-          </Button>
+          <SettingsButton />
           <UserButton />
         </div>
       </div>
