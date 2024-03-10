@@ -1,38 +1,38 @@
-import { Folder, FolderMinus, Plus, Star } from "lucide-react"
+import { Plus } from "lucide-react"
 import { GroupList } from "./group-list"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
+import { db } from "@/lib/db"
+import { auth } from "@/lib/auth"
+import { AddGroupButton } from "./add-group-button"
 
 const commonList = [
   {
     id: '-1',
-    name: 'All projects',
-    icon: <Folder className=" w-[1.2rem] h-[1.2rem]" />
+    groupName: 'All projects',
   },
   {
     id: '0',
-    name: 'Star projects',
-    icon: <Star className="w-[1.2rem] h-[1.2rem]" />
+    groupName: 'Star projects',
   }
 ]
-const apiList = [1, 2, 3, 4, 5, 6, 7, 8].map((i) => ({
-  id: i.toString(),
-  name: `API project${i}`,
-  icon: <FolderMinus className=" w-[1.2rem] h-[1.2rem]" />
-}))
 
-export const GroupAside = () => {
+export const GroupAside = async () => {
+  const session = await auth()
+  const groups = await db.group.findMany({
+    where: {
+      createdBy: session?.user?.id
+    }
+  })
   return (
     <aside className="w-1/6 flex flex-col gap-y-1">
       <GroupList list={commonList} />
       <Separator />
       <div className="flex items-center justify-between mb-2">
         <p className="text-sm text-muted-foreground">Groups</p>
-        <Button size="icon" asChild variant="ghost">
-          <Plus className=" w-[1.2rem] h-[1.2rem]"/>
-        </Button>
+        <AddGroupButton/>
       </div>
-      <GroupList list={apiList} />
+      <GroupList list={groups} />
     </aside>
   )
 }
