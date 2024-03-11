@@ -1,7 +1,5 @@
-import { Plus } from "lucide-react"
 import { GroupList } from "./group-list"
 import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
 import { db } from "@/lib/db"
 import { auth } from "@/lib/auth"
 import { AddGroupButton } from "./add-group-button"
@@ -22,6 +20,9 @@ export const GroupAside = async () => {
   const groups = await db.group.findMany({
     where: {
       createdBy: session?.user?.id
+    },
+    orderBy: {
+      createdAt: 'asc'
     }
   })
   return (
@@ -30,7 +31,7 @@ export const GroupAside = async () => {
       <Separator />
       <div className="flex items-center justify-between mb-2">
         <p className="text-sm text-muted-foreground">Groups</p>
-        <AddGroupButton/>
+        <AddGroupButton />
       </div>
       <GroupList list={groups} />
     </aside>

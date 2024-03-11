@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Settings } from "lucide-react";
+import { AddProjectButton } from "@/components/workbench/add-project-button";
+import { db } from "@/lib/db";
+import { PenTool, Settings } from "lucide-react";
 import Link from "next/link";
+import { EmptyProject } from "./_components/empty-project";
 
 interface Props {
   params: {
@@ -9,15 +12,13 @@ interface Props {
   };
 };
 
-const getProjects = () => {
-  return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => ({
-    id: i,
-    name: `Project ${i}`
-  }))
-}
+export default async function Page({ params }: Props) {
+  const projects = await db.project.findMany({});
 
-export default function Page({ params }: Props) {
-  const projects = getProjects();
+  if (projects.length === 0) {
+    return <EmptyProject />
+  }
+
   return (
     <div className="w-full grid grid-cols-3 gap-8 p-8 pt-0">
       {projects.map(project => (
@@ -26,7 +27,7 @@ export default function Page({ params }: Props) {
           key={project.id}>
           <Card className=" hover:bg-primary-foreground">
             <CardHeader>
-              <h2 className="text-lg font-bold">{project.name}</h2>
+              <h2 className="text-lg font-bold">{project.projectName}</h2>
             </CardHeader>
             <CardContent>
               <p>Project description</p>
