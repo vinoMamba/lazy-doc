@@ -32,8 +32,9 @@ model Project {
   description String?  @db.Text
   isDeleted   Boolean  @default(false) @map("is_deleted") @db.TinyInt
   isPublic    Boolean  @default(false) @map("is_public") @db.TinyInt
+  isStarred   Boolean  @default(false) @map("is_starred") @db.TinyInt
   createdAt   DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
+  createdBy   String   @map("created_by")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   @@map("projects")
@@ -48,4 +49,16 @@ model Group {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("groups")
+}
+
+model GroupProject {
+  id        String   @id @default(uuid())
+  groupId   String   @map("group_id")
+  projectId String   @map("project_id")
+  isDeleted Boolean  @default(false) @map("is_deleted") @db.TinyInt
+  createdAt DateTime @default(now()) @map("created_at")
+  createdBy String   @map("created_by")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("group_projects")
 }

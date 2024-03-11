@@ -6,11 +6,11 @@ import { AddGroupButton } from "./add-group-button"
 
 const commonList = [
   {
-    id: '-1',
+    id: '0',
     groupName: 'All projects',
   },
   {
-    id: '0',
+    id: '-1',
     groupName: 'Star projects',
   }
 ]

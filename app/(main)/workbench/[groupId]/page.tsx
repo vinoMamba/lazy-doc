@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { AddProjectButton } from "@/components/workbench/add-project-button";
-import { db } from "@/lib/db";
-import { PenTool, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
 import Link from "next/link";
 import { EmptyProject } from "./_components/empty-project";
+import { getProjectsByGroupId } from "@/data/project";
 
 interface Props {
   params: {
@@ -13,7 +12,7 @@ interface Props {
 };
 
 export default async function Page({ params }: Props) {
-  const projects = await db.project.findMany({});
+  const projects = await getProjectsByGroupId(params.groupId);
 
   if (projects.length === 0) {
     return <EmptyProject />
