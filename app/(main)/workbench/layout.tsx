@@ -12,7 +12,7 @@ export default function WorkbenchLayout({ children }: { children: React.ReactNod
         <div className="max-w-screen-lg mx-auto flex gap-x-2">
           <GroupAside />
           <div className="flex-1">
-            <header className=" flex items-center gap-x-4 px-8 mb-8">
+            <header className=" flex items-center gap-x-4 px-8 mb-4">
               <Input placeholder="Search projects..." />
               <AddProjectButton/>
             </header>

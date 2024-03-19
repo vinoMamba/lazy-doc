@@ -49,17 +49,36 @@ export const getStarredProjects = async () => {
   return [...staredProjects, ...myProjects]
 }
 
+export const getProjects = async (groupId: string) => {
+  const list = await db.groupProject.findMany({
+    where: {
+      groupId: groupId
+    }
+  })
+  const projectIds = list.map(item => item.projectId)
+  const projects = await db.project.findMany({
+    where: {
+      id: {
+        in: projectIds
+      },
+      isDeleted: false
+    }
+  })
+  return projects
+}
+
+
 
 export const getProjectsByGroupId = async (groupId: string) => {
   if (!groupId) {
     return []
   }
-  if (groupId === '0') {
+  else if (groupId === '0') {
     return getAllProjects()
   }
-  if (groupId === '-1') {
+  else if (groupId === '-1') {
     return getStarredProjects()
+  } else {
+    return getProjects(groupId)
   }
-
-  return []
 }

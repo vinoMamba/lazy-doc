@@ -1,9 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Settings } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
 import { EmptyProject } from "./_components/empty-project";
 import { getProjectsByGroupId } from "@/data/project";
+import { ContextMenuWrapper } from "./_components/context-menu-wrapper";
 
 interface Props {
   params: {
@@ -19,25 +18,24 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <div className="w-full grid grid-cols-3 gap-8 p-8 pt-0">
+    <div className="w-full grid grid-cols-3 gap-4 p-8 pt-0">
       {projects.map(project => (
-        <Link
-          href={`/project/${project.id}`}
-          key={project.id}>
-          <Card className=" hover:bg-primary-foreground">
-            <CardHeader>
-              <h2 className="text-lg font-bold">{project.projectName}</h2>
-            </CardHeader>
-            <CardContent>
-              <p>Project description</p>
-            </CardContent>
-            <CardFooter className=" flex items-center justify-end">
-              <Button size="icon" variant="ghost">
-                <Settings className=" w-[1.2rem] h-[1.2rem]" />
-              </Button>
-            </CardFooter>
-          </Card>
-        </Link>
+        <ContextMenuWrapper
+          key={project.id}
+          project={project}
+        >
+          <Link href={`/project/${project.id}`}>
+            <Card className="group hover:bg-primary-foreground h-full">
+              <CardHeader>
+                <h2 className="text-lg font-bold">{project.projectName}</h2>
+              </CardHeader>
+              <CardContent>
+                <span>{project.isStarred ? 'star' : 'unstar'}</span>
+                <p>{project.description}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        </ContextMenuWrapper>
       ))}
     </div>
   )
