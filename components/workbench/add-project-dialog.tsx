@@ -17,8 +17,10 @@ import { Textarea } from "../ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import useSwr from "swr"
 import { useEffect } from "react"
+import { useCurrentUser } from "@/hooks/use-current-user"
 
 export const AddProjectDialog = () => {
+  const user = useCurrentUser()
   const [isOpen, onClose, projectId] = useProjectDialog(s => [s.isOpen, s.onClose, s.projectId])
 
   const { data } = useSwr(() => `/api/project/${projectId}`, (url) => fetch(url).then(res => res.json()))
@@ -28,7 +30,9 @@ export const AddProjectDialog = () => {
       form.setValue("id", data.id)
       form.setValue("projectName", data.projectName)
       form.setValue("description", data.description)
-      form.setValue("isPublic", data.isPublic ? "1" : "0")
+      form.setValue("isPublic", data.isPublic ? "0" : "1")
+    } else {
+      form.reset()
     }
   }, [data])
 
@@ -104,7 +108,12 @@ export const AddProjectDialog = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Public</FormLabel>
-                  <Select {...field} onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    {...field}
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={data && data.createdBy !== user?.id}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Public project" />
