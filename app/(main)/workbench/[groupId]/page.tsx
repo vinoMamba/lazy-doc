@@ -1,8 +1,11 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { EmptyProject } from "./_components/empty-project";
 import { getProjectsByGroupId } from "@/data/project";
 import { ContextMenuWrapper } from "./_components/context-menu-wrapper";
+import { getDate } from "@/lib/date";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { ProjectCard } from "./_components/project-card";
 
 interface Props {
   params: {
@@ -25,15 +28,7 @@ export default async function Page({ params }: Props) {
           project={project}
         >
           <Link href={`/project/${project.id}`}>
-            <Card className="group hover:bg-primary-foreground h-full">
-              <CardHeader>
-                <h2 className="text-lg font-bold">{project.projectName}</h2>
-              </CardHeader>
-              <CardContent>
-                <span>{project.isStarred ? 'star' : 'unstar'}</span>
-                <p>{project.description}</p>
-              </CardContent>
-            </Card>
+            <ProjectCard project={project} />
           </Link>
         </ContextMenuWrapper>
       ))}
