@@ -13,7 +13,7 @@ type Props = {
 const StarItem = () => {
   return (
     <>
-      <StarOff className="w-[1.2rem] h-[1.2rem] " />
+      <StarOff className="w-[1rem] h-[1rem] " />
       <span>Star</span>
     </>
   )
@@ -22,7 +22,7 @@ const StarItem = () => {
 const UnStarItem = () => {
   return (
     <>
-      <Star className="w-[1.2rem] h-[1.2rem] text-yellow-300" />
+      <Star className="w-[1rem] h-[1rem] text-yellow-300" />
       <span>Unstar</span>
     </>
   )

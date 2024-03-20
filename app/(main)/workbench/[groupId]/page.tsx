@@ -1,10 +1,7 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { EmptyProject } from "./_components/empty-project";
 import { getProjectsByGroupId } from "@/data/project";
 import { ContextMenuWrapper } from "./_components/context-menu-wrapper";
-import { getDate } from "@/lib/date";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { ProjectCard } from "./_components/project-card";
 
 interface Props {

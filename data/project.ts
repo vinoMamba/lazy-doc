@@ -82,3 +82,12 @@ export const getProjectsByGroupId = async (groupId: string) => {
     return getProjects(groupId)
   }
 }
+
+
+export const getProjectById = async (projectId: string) => {
+  return await db.project.findUnique({
+    where: {
+      id: projectId
+    }
+  })
+}

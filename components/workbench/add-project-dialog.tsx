@@ -9,42 +9,64 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useAction } from "@/hooks/use-action"
 import { toast } from "sonner"
-import { AddProjectSchema } from "@/actions/add-project/schema"
-import { addProjectAction } from "@/actions/add-project"
+import { AddOrEditProjectSchema } from "@/actions/add-project/schema"
+import { addOrEditProjectAction } from "@/actions/add-project"
 import { Project } from "@prisma/client"
 import { useProjectDialog } from "@/hooks/use-project-dialog"
 import { Textarea } from "../ui/textarea"
-import { Select, SelectContent,  SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import useSwr from "swr"
+import { useEffect } from "react"
 
 export const AddProjectDialog = () => {
-  const [isOpen, onClose] = useProjectDialog(s => [s.isOpen, s.onClose,])
-  const form = useForm<z.infer<typeof AddProjectSchema>>({
-    resolver: zodResolver(AddProjectSchema),
+  const [isOpen, onClose, projectId] = useProjectDialog(s => [s.isOpen, s.onClose, s.projectId])
+
+  const { data } = useSwr(() => `/api/project/${projectId}`, (url) => fetch(url).then(res => res.json()))
+
+  useEffect(() => {
+    if (data) {
+      form.setValue("id", data.id)
+      form.setValue("projectName", data.projectName)
+      form.setValue("description", data.description)
+      form.setValue("isPublic", data.isPublic ? "1" : "0")
+    }
+  }, [data])
+
+  const form = useForm<z.infer<typeof AddOrEditProjectSchema>>({
+    resolver: zodResolver(AddOrEditProjectSchema),
     defaultValues: {
       projectName: "",
       description: "",
       isPublic: "0"
     }
   })
-  const { isPending, execute } = useAction<z.infer<typeof AddProjectSchema>, Project>(addProjectAction, {
-    onError(error) {
-      toast.error(error)
-    },
-    onSuccess() {
-      toast.success("Project added")
-      onClose()
-      form.reset()
-    }
+
+  const { isPending, execute } = useAction<
+    z.infer<typeof AddOrEditProjectSchema>,
+    { project: Project, isEdit: boolean }>(addOrEditProjectAction, {
+      onError(error) {
+        toast.error(error)
+      },
+      onSuccess({ isEdit }) {
+        toast.success(`${isEdit ? "Updated" : "Added"} project successfully.`)
+        onClose()
+        form.reset()
+      }
+    })
+
+  const onSubmit = form.handleSubmit((values) => {
+    execute(values)
   })
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="w-[480px]">
         <DialogHeader>
-          Add project
+          {projectId ? "Edit" : "Add"} project
         </DialogHeader>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => execute(values))}
+            onSubmit={onSubmit}
             className=" space-y-6"
           >
             <FormField
@@ -99,7 +121,7 @@ export const AddProjectDialog = () => {
             />
 
             <Button type="submit" className="w-full" disabled={isPending}>
-              Add Project
+              {projectId ? "Edit" : "Add"} Project
             </Button>
           </form>
         </Form>

@@ -23,7 +23,7 @@ export const DeleteButton = ({ projectId }: Props) => {
       className="flex items-center gap-x-2 cursor-pointer"
       onClick={() => execute({ projectId })}
     >
-      <Trash2 className="w-[1.2rem] h-[1.2rem] text-destructive" />
+      <Trash2 className="w-[1rem] h-[1rem] text-destructive" />
       <span>Delete</span>
     </div>
   )
