@@ -1,12 +1,26 @@
 import { Separator } from "@/components/ui/separator"
+import { AsideList, ListItem } from "./aside-list"
+import { getMineGroups } from "@/data/group"
+import { GroupForm } from "@/components/form/group-form"
 
-export const MainAside = () => {
+const mainList: ListItem[] = [
+  {
+    id: 'all',
+    groupName: "All project",
+  },
+  {
+    id: 'trash',
+    groupName: "Trash",
+  },
+]
+
+export const MainAside = async () => {
+  const groups = await getMineGroups()
   return (
-    <aside className="w-1/5 flex-col gap-y-1 shrink-0 bg-blue-200 hidden md:flex">
-      <Separator />
-      <div className="flex items-center justify-between mb-2">
-        <p className="text-sm text-muted-foreground">Groups</p>
-      </div>
+    <aside className="w-1/5 flex-col gap-y-1 shrink-0 hidden md:flex">
+      <AsideList list={mainList} />
+      <GroupForm />
+      <AsideList list={groups} />
     </aside>
   )
 }
