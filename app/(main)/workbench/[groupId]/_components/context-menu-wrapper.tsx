@@ -9,9 +9,9 @@ import { Project } from "@prisma/client"
 import { DeleteButton } from "./delete-button"
 import { EditButton } from "./edit-button"
 
-type Props = {
-  children: React.ReactNode
-  project: Project
+type props = {
+  children: react.reactnode
+  project: project
 }
 
 export const ContextMenuWrapper = async ({ children, project }: Props) => {
