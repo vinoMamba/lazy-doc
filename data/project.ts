@@ -8,7 +8,6 @@ export const getAllProjects = async () => {
   }
   const publickProjects = await db.project.findMany({
     where: {
-      isPublic: true,
       isDeleted: false,
       createdBy: {
         not: session.user.id
@@ -31,8 +30,6 @@ export const getStarredProjects = async () => {
   }
   const staredProjects = await db.project.findMany({
     where: {
-      isStarred: true,
-      isPublic: true,
       isDeleted: false,
       createdBy: {
         not: session.user.id
@@ -41,7 +38,6 @@ export const getStarredProjects = async () => {
   })
   const myProjects = await db.project.findMany({
     where: {
-      isStarred: true,
       isDeleted: false,
       createdBy: session.user.id
     }

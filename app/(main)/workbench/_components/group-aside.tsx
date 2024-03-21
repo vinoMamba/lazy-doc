@@ -26,7 +26,7 @@ export const GroupAside = async () => {
     }
   })
   return (
-    <aside className="w-1/6 flex flex-col gap-y-1">
+    <aside className="w-1/6 flex flex-col gap-y-1 bg-blue-200 h-full">
       <GroupList list={commonList} />
       <Separator />
       <div className="flex items-center justify-between mb-2">
