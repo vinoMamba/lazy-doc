@@ -1,10 +1,12 @@
 import { Project } from "@prisma/client"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { getDate } from "@/lib/date"
-import { CalendarDays, Layers, PencilLine } from "lucide-react"
-import { Button } from "./ui/button"
+import { CalendarDays, Layers, MoveUpRight, PencilLine } from "lucide-react"
+import { Button, buttonVariants } from "./ui/button"
 import { EditProjectButton } from "./edit-project-button"
 import { DeleteProjectButton } from "./delete-project-button"
+import Link from "next/link"
+import { cn } from "@/lib/utils"
 
 type Props = {
   project: Project
@@ -29,7 +31,11 @@ export const ProjectCard = ({ project }: Props) => {
         </CardDescription>
       </CardContent>
       <CardFooter className="flex items-center">
-        <Button size="sm" variant="link">View</Button>
+        <Link
+          className={cn(buttonVariants({ size: 'sm', variant: 'link' }))}
+          href={`/doc/${project.id}`}>
+          View
+        </Link>
         <EditProjectButton projectId={project.id} />
         <DeleteProjectButton project={project} />
       </CardFooter>
