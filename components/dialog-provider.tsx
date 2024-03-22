@@ -1,11 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { SettingsDialog } from "@/components/settings/settings-dialog"
-import { ChangePasswordDialog } from "@/components/settings/change-password-dialog"
-import { ChangeEmailDialog } from "@/components/settings/change-email-dialog"
-import { AddGroupDialog } from "@/components/group/add-group-dialog"
-import { AddProjectDialog } from "@/components/workbench/add-project-dialog"
+import { SettingsDialog } from "./settings-dialog"
+import { ChangePasswordDialog } from "./change-password-dialog"
+import { ChangeEmailDialog } from "./change-email-dialog"
+import { AddGroupDialog } from "./add-group-dialog"
+import { AddProjectDialog } from "./add-project-dialog"
 
 export const DialogProvider = () => {
   const [isMounted, setIsMounted] = useState(false)

@@ -1,7 +1,6 @@
-import { Separator } from "@/components/ui/separator"
 import { AsideList, ListItem } from "./aside-list"
 import { getMineGroups } from "@/data/group"
-import { GroupForm } from "@/components/form/group-form"
+import { GroupForm } from "./group-form"
 
 const mainList: ListItem[] = [
   {

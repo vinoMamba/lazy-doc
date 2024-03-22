@@ -1,9 +1,9 @@
 "use client"
 
-import { Dialog, DialogContent, DialogHeader } from "../ui/dialog"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
+import { Dialog, DialogContent, DialogHeader } from "./ui/dialog"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Input } from "./ui/input"
+import { Button } from "./ui/button"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"

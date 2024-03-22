@@ -1,9 +1,9 @@
 "use client"
 
-import { Dialog, DialogContent, DialogHeader } from "../ui/dialog"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
+import { Dialog, DialogContent, DialogHeader } from "./ui/dialog"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Input } from "./ui/input"
+import { Button } from "./ui/button"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -13,7 +13,7 @@ import { AddProjectSchema } from "@/actions/add-project/schema"
 import { addProjectAction } from "@/actions/add-project"
 import { Project } from "@prisma/client"
 import { useProjectDialog } from "@/hooks/use-project-dialog"
-import { Textarea } from "../ui/textarea"
+import { Textarea } from "./ui/textarea"
 
 export const AddProjectDialog = () => {
   const [isOpen, onClose, projectId] = useProjectDialog(s => [s.isOpen, s.onClose, s.projectId])

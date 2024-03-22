@@ -1,89 +1,48 @@
+import { AddProjectSchema } from "@/actions/add-project/schema";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { Project } from "@prisma/client";
+import { z } from "zod";
 
 export const getAllProjects = async () => {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return []
-  }
-  const publickProjects = await db.project.findMany({
-    where: {
-      isDeleted: false,
-      createdBy: {
-        not: session.user.id
+  try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return []
+    }
+
+    const pList = await db.userProject.findMany({
+      where: { userId: session.user.id }
+    })
+
+    const propjects = await db.project.findMany({
+      where: {
+        id: { in: pList.map((p) => p.projectId) }
       }
-    }
-  })
-  const myProjects = await db.project.findMany({
-    where: {
-      isDeleted: false,
-      createdBy: session.user.id
-    }
-  })
-  return [...publickProjects, ...myProjects]
-}
-
-export const getStarredProjects = async () => {
-  const session = await auth()
-  if (!session?.user?.id) {
+    })
+    return propjects
+  } catch (error) {
+    console.error(error)
     return []
   }
-  const staredProjects = await db.project.findMany({
-    where: {
-      isDeleted: false,
-      createdBy: {
-        not: session.user.id
+}
+
+export const createProject = async (project: z.infer<typeof AddProjectSchema>, userId: string) => {
+  return db.$transaction(async (tx) => {
+    const p = await tx.project.create({
+      data: {
+        projectName: project.projectName,
+        description: project.description,
+        createdBy: userId,
       }
-    }
-  })
-  const myProjects = await db.project.findMany({
-    where: {
-      isDeleted: false,
-      createdBy: session.user.id
-    }
-  })
-  return [...staredProjects, ...myProjects]
-}
-
-export const getProjects = async (groupId: string) => {
-  const list = await db.groupProject.findMany({
-    where: {
-      groupId: groupId
-    }
-  })
-  const projectIds = list.map(item => item.projectId)
-  const projects = await db.project.findMany({
-    where: {
-      id: {
-        in: projectIds
-      },
-      isDeleted: false
-    }
-  })
-  return projects
-}
-
-
-
-export const getProjectsByGroupId = async (groupId: string) => {
-  if (!groupId) {
-    return []
-  }
-  else if (groupId === '0') {
-    return getAllProjects()
-  }
-  else if (groupId === '-1') {
-    return getStarredProjects()
-  } else {
-    return getProjects(groupId)
-  }
-}
-
-
-export const getProjectById = async (projectId: string) => {
-  return await db.project.findUnique({
-    where: {
-      id: projectId
-    }
+    })
+    await tx.userProject.create({
+      data: {
+        userId,
+        projectId: p.id,
+        createdBy: userId,
+      }
+    })
+    return p
   })
 }
