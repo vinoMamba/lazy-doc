@@ -1,7 +1,6 @@
 import { AddProjectSchema } from "@/actions/add-project/schema";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Project } from "@prisma/client";
 import { z } from "zod";
 
 export const getAllProjects = async () => {
@@ -41,6 +40,26 @@ export const createProject = async (project: z.infer<typeof AddProjectSchema>, u
         userId,
         projectId: p.id,
         createdBy: userId,
+      }
+    })
+    return p
+  })
+}
+
+export const deleteProject = async (projectId: string) => {
+  return db.$transaction(async (tx) => {
+    const p = await tx.project.update({
+      where: {
+        id: projectId
+      },
+      data: {
+        isDeleted: true
+      }
+    })
+
+    await tx.userProject.deleteMany({
+      where: {
+        projectId
       }
     })
     return p

@@ -6,6 +6,7 @@ import { Project } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { DeleteProjectSchema } from "./schema";
+import { deleteProject } from "@/data/project";
 
 
 export const DeleteProjectAction: Action<z.infer<typeof DeleteProjectSchema>, Project> = async (values) => {
@@ -25,15 +26,10 @@ export const DeleteProjectAction: Action<z.infer<typeof DeleteProjectSchema>, Pr
         error: "You are not logged in. Please log in and try again."
       }
     }
-    const p = await db.project.update({
-      where: {
-        id: projectId
-      },
-      data: {
-        isDeleted: true
-      }
-    })
-    revalidatePath("/workbench")
+
+    const p = await deleteProject(projectId)
+
+    revalidatePath("/project")
     return {
       data: p
     }
