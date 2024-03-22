@@ -1,6 +1,5 @@
 "use server"
 import { Action } from "@/types/action";
-import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { Project } from "@prisma/client";
 import { revalidatePath } from "next/cache";

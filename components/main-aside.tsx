@@ -19,7 +19,11 @@ export const MainAside = async () => {
     <aside className="w-1/5 flex-col gap-y-1 shrink-0 hidden md:flex">
       <AsideList list={mainList} />
       <GroupForm />
-      <AsideList list={groups} />
+      {
+        groups.length > 0 && (
+          <AsideList list={groups} />
+        )
+      }
     </aside>
   )
 }

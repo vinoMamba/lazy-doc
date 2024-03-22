@@ -16,3 +16,12 @@ export const getUserById = async (id: string) => {
     }
   })
 }
+
+export const getAllUsers = async () => {
+  return db.user.findMany({
+    where: {
+      isDeleted: false
+    }
+  })
+}
+

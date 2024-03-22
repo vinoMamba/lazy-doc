@@ -16,7 +16,7 @@ export default async function MainLayout({
     <SessionProvider session={session}>
       <MainNav />
       <main className="pt-20 pb-20 h-full px-4 md:px-0">
-        <div className="max-w-screen-lg mx-auto flex gap-x-2 h-full">
+        <div className="container mx-auto flex gap-x-2 h-full">
           <MainAside />
           <div className="flex-1">
             <header className=" flex items-center gap-x-4 mb-4">
