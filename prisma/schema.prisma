@@ -55,6 +55,8 @@ model UserProject {
   id        String   @id @default(uuid())
   userId    String   @map("user_id")
   projectId String   @map("project_id")
+  // perm  0 - admin, 1 - write, 2 - read
+  perm      Int      @default(0)
   isDeleted Boolean  @default(false) @map("is_deleted") @db.TinyInt
   createdAt DateTime @default(now()) @map("created_at")
   createdBy String   @map("created_by")

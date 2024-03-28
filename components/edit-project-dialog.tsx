@@ -6,6 +6,7 @@ import { Separator } from "./ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
 import { ScrollArea } from "./ui/scroll-area"
 import { ProjectForm } from "./project-form"
+import { PermList } from "./perm-list"
 
 export const EditProjectDialog = () => {
   const [isOpen, onClose, projectId] = useEditProjectDialog(s => [s.isOpen, s.onClose, s.projectId])
@@ -25,7 +26,7 @@ export const EditProjectDialog = () => {
               <ProjectForm projectId={projectId} />
             </TabsContent>
             <TabsContent value="members">
-
+              <PermList projectId={projectId}/>
             </TabsContent>
           </ScrollArea>
         </Tabs>
