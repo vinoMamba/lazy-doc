@@ -8,6 +8,9 @@ import { CardWrapper } from "./card-wrapper"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useAction } from "@/hooks/use-action"
+import { registerAction } from "@/action/register"
+import { toast } from "sonner"
 
 export const RegisterForm = () => {
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -19,6 +22,15 @@ export const RegisterForm = () => {
     }
   })
 
+  const { execute, isPending } = useAction<z.infer<typeof RegisterSchema>, null>(registerAction, {
+    onSuccess: () => {
+      toast.success("Registration successful.")
+    },
+    onError: (error) => {
+      toast.error(error)
+    }
+  })
+
   return (
     <CardWrapper
       headerLabel="Sign Up"
@@ -26,10 +38,11 @@ export const RegisterForm = () => {
       backButtonLabel="Already have an account? Sign In."
     >
       <Form {...form}>
-        <form>
+        <form onSubmit={form.handleSubmit(values => execute(values))}>
           <div className=" space-y-4">
             <FormField
               control={form.control}
+              disabled={isPending}
               name="email"
               render={({ field }) => (
                 <FormItem>
@@ -44,11 +57,12 @@ export const RegisterForm = () => {
             <FormField
               control={form.control}
               name="username"
+              disabled={isPending}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="exmaple"  />
+                    <Input {...field} placeholder="exmaple" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -57,6 +71,7 @@ export const RegisterForm = () => {
             <FormField
               control={form.control}
               name="password"
+              disabled={isPending}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
@@ -67,7 +82,7 @@ export const RegisterForm = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={isPending}>
               Sign Up
             </Button>
           </div>
