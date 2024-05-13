@@ -21,7 +21,7 @@ export const loginAction: Action<z.infer<typeof LoginSchema>> = async (values) =
     })
     const json = await result.json();
     if (json.code === 0 && result.status === 200) {
-      cookies().set("token", JSON.stringify(json.data.accessToken), { secure: true })
+      cookies().set("token", JSON.stringify(json.data), { secure: true })
       return {
         data: null
       }

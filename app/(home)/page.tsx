@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { config } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Computer  } from "lucide-react";
+import { Computer } from "lucide-react";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ export default function HomePage() {
       <div className=" flex items-center gap-x-2 mt-6">
         <Button size="lg" asChild>
           <Link href="/login">
-            Login 
+            Login
           </Link>
         </Button>
         <Button size="lg" variant="secondary" asChild>
