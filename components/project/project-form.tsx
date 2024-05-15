@@ -59,7 +59,7 @@ export const ProjectForm = ({ projectId, onFinish }: Props) => {
   })
 
   return (
-    <Form {...form}>
+    <Form {...form} >
       <form
         onSubmit={onSubmit}
         className="space-y-6 px-4"

@@ -1,13 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getFirstLetter } from "@/lib/shared"
-
-type User = {
-  avatar?: string 
-  username: string
-}
+import { User } from "@/schema/user"
+import { z } from "zod"
 
 interface Props {
-  user: User | undefined
+  user: z.infer<typeof User> | undefined
 }
 
 export const UserItem = ({ user }: Props) => {
