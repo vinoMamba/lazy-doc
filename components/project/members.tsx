@@ -63,10 +63,11 @@ const columns: ColumnDef<Member>[] = [
 
 
 export const Members = () => {
+  const checkedList = ['BHEHfnVJNW']
   return (
     <div className=" space-y-2">
       <div className=" text-right">
-        <AddMembersButton/>
+        <AddMembersButton checkedList={checkedList} />
       </div>
       <DataTable columns={columns} data={mockData} />
     </div>

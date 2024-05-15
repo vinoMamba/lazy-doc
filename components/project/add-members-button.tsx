@@ -2,9 +2,13 @@
 import { Button } from "@/components/ui/button"
 import { useMembersDialog } from "@/hooks/use-members-dialog"
 
-export const AddMembersButton = () => {
+type Props = {
+  checkedList: Array<string>
+}
+
+export const AddMembersButton = ({ checkedList }: Props) => {
   const [onOpen] = useMembersDialog(s => [s.onOpen])
   return (
-    <Button size="sm" onClick={() => onOpen()}>Add members</Button>
+    <Button size="sm" onClick={() => onOpen(checkedList)}>Add members</Button>
   )
 }
