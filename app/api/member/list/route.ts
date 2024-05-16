@@ -3,14 +3,14 @@ import { NextResponse } from "next/server"
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  const username = searchParams.get('username')
+  const projectId = searchParams.get('projectId')
   const token = await getToken()
 
   if (!token) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const res = await fetch(`${process.env.NEXT_API_URL}/user/list?username=${username}`, {
+  const res = await fetch(`${process.env.NEXT_API_URL}/project/members?projectId=${projectId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

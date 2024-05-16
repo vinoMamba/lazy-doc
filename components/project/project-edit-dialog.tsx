@@ -31,7 +31,7 @@ export const ProjectEditDialog = () => {
             {
               currentTab === 'info'
                 ? <ProjectForm projectId={projectId} />
-                : <Members />
+                : <Members projectId={projectId} />
             }
           </AspectRatio>
         </div>

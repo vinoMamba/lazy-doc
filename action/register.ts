@@ -1,7 +1,6 @@
 "use server"
 
 import { RegisterSchema } from "@/schema/auth";
-import { cookies } from "next/headers";
 import { z } from "zod";
 
 export const registerAction: Action<z.infer<typeof RegisterSchema>> = async (values) => {
@@ -22,7 +21,6 @@ export const registerAction: Action<z.infer<typeof RegisterSchema>> = async (val
 
     const json = await result.json();
     if (json.code === 0 && result.status === 200) {
-      cookies().set("token", JSON.stringify(json.data.accessToken), { secure: true })
       return {
         data: null
       }
