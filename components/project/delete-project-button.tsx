@@ -5,7 +5,7 @@ import { useAction } from "@/hooks/use-action"
 import { deleteProjectAction } from "@/action/delete-project"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
-import { buttonVariants } from "../ui/button"
+import { buttonVariants } from "@/components/ui/button"
 
 type Props = {
   projectId: string

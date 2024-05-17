@@ -40,13 +40,15 @@ export const ProjectList = async ({ pageNum, projectName }: Props) => {
   }
 
   return (
-    <div className=" flex flex-col gap-y-2">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-4 pt-8">
-        {
-          items.map((item) => (
-            <ProjectCard key={item.projectId} project={item} />
-          ))
-        }
+    <div className=" flex flex-col gap-y-2 h-full">
+      <div className="flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-4 pt-8">
+          {
+            items.map((item) => (
+              <ProjectCard key={item.projectId} project={item} />
+            ))
+          }
+        </div>
       </div>
       <BasicPagination totalPage={totalPage} page={pageNum} total={total} />
     </div>

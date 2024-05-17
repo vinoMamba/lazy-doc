@@ -4,13 +4,13 @@ import { redirect } from "next/navigation"
 import { Oops } from "@/components/oops"
 import { MembersTable } from "./members-table"
 import { z } from "zod"
-import { MemberSchema } from "@/schema/member"
+import { MemberListSchema } from "@/schema/member"
 
 type Props = {
   projectId: string
 }
 
-type MemberList = Array<z.infer<typeof MemberSchema>>
+type MemberList = z.infer<typeof MemberListSchema>
 
 export const Members = async ({ projectId }: Props) => {
   const token = await getToken()
@@ -34,7 +34,7 @@ export const Members = async ({ projectId }: Props) => {
   if (result && result.code === 0) {
 
     const data = (result.data || []) as MemberList
-    const checkedList = data.map(i => i.userId)
+    const checkedList = data.items.map(i => i.userId)
 
     return (
       <div>
@@ -42,7 +42,7 @@ export const Members = async ({ projectId }: Props) => {
           Members
           <AddMembersButton checkedList={checkedList} propjectId={projectId} />
         </div>
-        <MembersTable data={data} />
+        <MembersTable data={data.items} ownerId={data.ownerId} />
       </div>
     )
   } else {

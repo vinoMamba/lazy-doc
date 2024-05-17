@@ -2,12 +2,12 @@
 
 import { z } from "zod"
 import { getToken } from "@/lib/token"
-import { UpdateMemberSchema } from "@/schema/member"
+import { UpdateMembersSchema } from "@/schema/member"
 import { revalidateTag } from "next/cache"
 
-export const updateMemberAction: Action<z.infer<typeof UpdateMemberSchema>> = async (values) => {
+export const updateMembersAction: Action<z.infer<typeof UpdateMembersSchema>> = async (values) => {
   const token = await getToken()
-  const validateValues = UpdateMemberSchema.safeParse(values)
+  const validateValues = UpdateMembersSchema.safeParse(values)
 
   if (!validateValues.success) {
     return {
@@ -15,7 +15,7 @@ export const updateMemberAction: Action<z.infer<typeof UpdateMemberSchema>> = as
     }
   }
   try {
-    const result = await fetch(`${process.env.NEXT_API_URL}/project/member/update`, {
+    const result = await fetch(`${process.env.NEXT_API_URL}/project/members/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -11,7 +11,7 @@ import { UserItem } from "@/components/auth/user-item";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { useAction } from "@/hooks/use-action";
-import { updateMembersAction } from "@/action/update-member";
+import { updateMembersAction } from "@/action/update-members";
 import { UpdateMembersSchema } from "@/schema/member";
 import { toast } from "sonner";
 
