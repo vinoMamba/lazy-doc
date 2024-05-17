@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ProjectSchema } from "@/schema/project";
 import { formatDate } from "@/lib/date";
+import { DeleteProjectButton } from "./delete-project-button";
 
 type Props = {
   project: z.infer<typeof ProjectSchema>
@@ -45,7 +46,7 @@ export const ProjectCard = ({ project }: Props) => {
         <Link href={`/project/edit/${project.projectId}`}>
           <Button size="sm" variant="link">Edit</Button>
         </Link>
-        <Button size="sm" variant="link">Delete</Button>
+        <DeleteProjectButton projectId={project.projectId} />
       </CardFooter>
     </Card>
   )
