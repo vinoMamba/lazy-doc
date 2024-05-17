@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { ProejctDialog } from "./project/project-dialog";
-import { ProjectEditDialog } from "./project/project-edit-dialog";
 import { AddMembersDialog } from "./project/add-members-dialog";
 
 
@@ -20,7 +19,6 @@ export const DialogProvider = () => {
   return (
     <>
       <ProejctDialog />
-      <ProjectEditDialog />
       <AddMembersDialog />
     </>
   )

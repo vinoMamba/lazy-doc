@@ -23,9 +23,11 @@ export const updateMembersAction: Action<z.infer<typeof UpdateMembersSchema>> = 
       },
       body: JSON.stringify(validateValues.data)
     })
+
     const json = await result.json();
+
     if (json.code === 0 && result.status === 200) {
-      revalidateTag('fuck')
+      revalidateTag('projectMembers')
       return {
         data: null
       }

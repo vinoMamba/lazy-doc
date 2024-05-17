@@ -4,11 +4,9 @@ import { z } from "zod"
 import { getFirstLetter } from "@/lib/shared";
 import { CalendarDays, PencilLine } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { ProjectSchema } from "@/schema/project";
 import { formatDate } from "@/lib/date";
-import { EditProjectButton } from "./edit-project-button";
 
 type Props = {
   project: z.infer<typeof ProjectSchema>
@@ -41,13 +39,13 @@ export const ProjectCard = ({ project }: Props) => {
         </CardDescription>
       </CardContent>
       <CardFooter className="flex items-center justify-end">
-        <Link
-          className={cn(buttonVariants({ size: 'sm', variant: 'link' }))}
-          href={`/doc/${project.projectId}`}>
-          查看
+        <Link href={`/doc/${project.projectId}`}>
+          <Button size="sm" variant="link">View</Button>
         </Link>
-        <EditProjectButton proejctId={project.projectId} />
-        <Button size="sm" variant="link">删除</Button>
+        <Link href={`/project/edit/${project.projectId}`}>
+          <Button size="sm" variant="link">Edit</Button>
+        </Link>
+        <Button size="sm" variant="link">Delete</Button>
       </CardFooter>
     </Card>
   )

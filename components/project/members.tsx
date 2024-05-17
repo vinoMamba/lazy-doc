@@ -1,81 +1,52 @@
-"use client"
-import { ColumnDef } from "@tanstack/react-table"
-import { DataTable } from "../basic-table"
-import { Button } from "../ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { AddMembersButton } from "./add-members-button"
-import useSWR, { Fetcher } from "swr"
-import { useEffect, useState } from "react"
-
-type Member = {
-  userId: string
-  username: string
-  email: string
-  avatar: string
-  permission: string
-}
-const columns: ColumnDef<Member>[] = [
-  {
-    accessorKey: 'username',
-    header: 'Name'
-  },
-  {
-    accessorKey: 'email',
-    header: 'Email'
-  },
-  {
-    accessorKey: 'permission',
-    header: 'Permission',
-    cell: ({ row }) => {
-      return (
-        <Select
-          value={row.original.permission}
-          onValueChange={(value) => {
-            console.log(value)
-          }}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Permission" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="reader">Reader</SelectItem>
-            <SelectItem value="editor">Editor</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
-          </SelectContent>
-        </Select>
-      )
-    }
-  },
-  {
-    accessorKey: 'action',
-    header: 'action',
-    cell: () => {
-      return (
-        <Button size="sm" variant="link" className=" text-destructive">Delete</Button>
-      )
-    }
-  }
-]
+import { getToken } from "@/lib/token"
+import { redirect } from "next/navigation"
+import { Oops } from "@/components/oops"
+import { MembersTable } from "./members-table"
+import { z } from "zod"
+import { MemberSchema } from "@/schema/member"
 
 type Props = {
   projectId: string
 }
 
-export const Members = ({ projectId }: Props) => {
-  const [data, setData] = useState<Member[]>([])
-  useEffect(() => {
-    if (projectId) {
-      fetch(`api/member/list?projectId=${projectId}`, { next: { tags: ['fuck'] } })
-        .then(res => res.json())
-        .then(data => { setData(data) })
+type MemberList = Array<z.infer<typeof MemberSchema>>
+
+export const Members = async ({ projectId }: Props) => {
+  const token = await getToken()
+  if (!token) {
+    redirect("/")
+  }
+
+  const res = await fetch(`${process.env.NEXT_API_URL}/project/members?projectId=${projectId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    next: {
+      tags: ['projectMembers']
     }
-  }, [projectId])
-  return (
-    <div className=" space-y-2">
-      <div className=" text-right">
-        <AddMembersButton checkedList={data?.map(i => i.userId) || []} propjectId={projectId} />
+  })
+
+  const result = await res.json()
+
+  if (result && result.code === 0) {
+
+    const data = (result.data || []) as MemberList
+    const checkedList = data.map(i => i.userId)
+
+    return (
+      <div>
+        <div className="flex items-center justify-between py-4">
+          Members
+          <AddMembersButton checkedList={checkedList} propjectId={projectId} />
+        </div>
+        <MembersTable data={data} />
       </div>
-      <DataTable columns={columns} data={data || []} />
-    </div>
-  )
+    )
+  } else {
+    return <Oops />
+  }
+
 }

@@ -10,37 +10,33 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { AddOrEditProjectSchema } from "@/schema/project"
 import { projectAction } from "@/action/add-or-edit-project"
-import useSWR from "swr"
 import { useEffect } from "react"
 
 
 type Props = {
-  projectId?: string
+  values?: z.infer<typeof AddOrEditProjectSchema>
   onFinish?: () => void
 }
 
-export const ProjectForm = ({ projectId, onFinish }: Props) => {
-  const isUpdate = !!projectId
+export const ProjectForm = ({ values, onFinish }: Props) => {
 
-  const { data } = useSWR(projectId ? `api/project/info?projectId=${projectId}` : null, (url) => fetch(url).then(res => res.json()))
-
+  const isUpdate = !!values?.projectId
 
   const form = useForm<z.infer<typeof AddOrEditProjectSchema>>({
     resolver: zodResolver(AddOrEditProjectSchema),
     defaultValues: {
-      projectId,
       projectName: "",
       description: "",
     }
   })
 
   useEffect(() => {
-    if (data) {
-      form.setValue('projectId', data.projectId)
-      form.setValue('projectName', data.projectName)
-      form.setValue('description', data.description)
+    if (values) {
+      form.setValue('projectId', values.projectId)
+      form.setValue('projectName', values.projectName)
+      form.setValue('description', values.description)
     }
-  }, [data])
+  }, [values])
 
   const { isPending, execute } = useAction<
     z.infer<typeof AddOrEditProjectSchema>, null>(projectAction, {
