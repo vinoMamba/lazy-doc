@@ -1,9 +1,9 @@
 import { getToken } from "@/lib/token"
 import { ProjectCard } from "./project-card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { PenTool } from "lucide-react"
 import { ProjectListSchema } from "@/schema/project"
 import { BasicPagination } from "@/components/basic-pagination"
+import EmptyProject from "./empty-project"
 
 type Props = {
   pageNum: number,
@@ -22,7 +22,7 @@ export const ProjectList = async ({ pageNum, projectName }: Props) => {
   })
 
   if (!res.ok) {
-    return <EmptyList />
+    return <EmptyProject />
   }
 
   const data = await res.json()
@@ -30,10 +30,14 @@ export const ProjectList = async ({ pageNum, projectName }: Props) => {
   const validateData = ProjectListSchema.safeParse(data.data)
 
   if (!validateData.success) {
-    return <EmptyList />
+    return <EmptyProject />
   }
 
-  const { items, totalPage ,total} = validateData.data
+  const { items, totalPage, total } = validateData.data
+
+  if (items.length === 0) {
+    return <EmptyProject />
+  }
 
   return (
     <div className=" flex flex-col gap-y-2">
@@ -63,12 +67,3 @@ ProjectList.Skeleton = function ProjectListSkeleton() {
   )
 }
 
-
-const EmptyList = () => {
-  return (
-    <div className="flex flex-col items-center justify-center p-16">
-      <PenTool className=" text-muted-foreground" />
-      <p className=" mt-4 text-lg text-muted-foreground">No Data</p>
-    </div>
-  )
-}
