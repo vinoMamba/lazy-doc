@@ -7,9 +7,14 @@ import Link from "next/link"
 import useSWR from "swr"
 import Image from "next/image"
 import { UserItem } from "./user-item"
+import { logout } from "@/action/logout"
 
 export const UserButton = () => {
   const { data } = useSWR('/api/user/info', (url) => fetch(url).then(res => res.json()))
+
+  const handleLogout = () => {
+    logout()
+  }
 
   return (
     <DropdownMenu >
@@ -32,12 +37,12 @@ export const UserButton = () => {
           <Link href="/settings">
             <DropdownMenuItem className="px-2 cursor-pointer">
               <Settings2 className="w-4 h-4" />
-              <span className="ml-1">系统设置</span>
+              <span className="ml-1">Settings</span>
             </DropdownMenuItem>
           </Link>
           <DropdownMenuItem className="px-2 cursor-pointer">
             <LogOut className="w-4 h-4" />
-            <span className="ml-1">退出登录</span>
+            <span className="ml-1" onClick={handleLogout}>Logout</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
