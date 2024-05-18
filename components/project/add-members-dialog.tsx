@@ -28,7 +28,7 @@ export const AddMembersDialog = () => {
   const [username, setUsername] = useState('')
 
   const fetcher: Fetcher<Item[], { url: string, username: string }> = ({ url, username }) => fetch(`${url}?username=${username}`, ).then(res => res.json())
-  const { data } = useSWR({ url: `api/user/list`, username }, fetcher)
+  const { data } = useSWR({ url: `/api/user/list`, username }, fetcher)
 
   useEffect(() => {
     if (data) {
