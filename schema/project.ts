@@ -4,6 +4,7 @@ export const ProjectSchema = z.object({
   projectId: z.string(),
   projectName: z.string(),
   description: z.string().nullable(),
+  permission: z.string(),
   createdAt: z.string().nullable(),
 })
 

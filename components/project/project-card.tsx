@@ -43,10 +43,14 @@ export const ProjectCard = ({ project }: Props) => {
         <Link href={`/doc/${project.projectId}`}>
           <Button size="sm" variant="link">View</Button>
         </Link>
-        <Link href={`/project/edit/${project.projectId}`}>
-          <Button size="sm" variant="link">Edit</Button>
-        </Link>
-        <DeleteProjectButton projectId={project.projectId} />
+        {project.permission === 'admin' && (
+          <>
+            <Link href={`/project/edit/${project.projectId}`}>
+              <Button size="sm" variant="link">Edit</Button>
+            </Link>
+            <DeleteProjectButton projectId={project.projectId} />
+          </>
+        )}
       </CardFooter>
     </Card>
   )
