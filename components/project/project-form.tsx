@@ -58,7 +58,7 @@ export const ProjectForm = ({ values, onFinish }: Props) => {
     <Form {...form} >
       <form
         onSubmit={onSubmit}
-        className="space-y-6 px-4"
+        className="space-y-6"
       >
         <FormField
           control={form.control}

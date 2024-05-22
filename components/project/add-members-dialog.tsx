@@ -3,7 +3,7 @@ import { useMembersDialog } from "@/hooks/use-members-dialog"
 import { Dialog, DialogContent, DialogTitle, DialogHeader, DialogFooter } from "@/components/ui/dialog";
 import useSWR, { Fetcher } from "swr"
 import { z } from "zod";
-import { User } from "@/schema/user";
+import { UserSchema } from "@/schema/user";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,7 +15,7 @@ import { updateMembersAction } from "@/action/update-members";
 import { UpdateMembersSchema } from "@/schema/member";
 import { toast } from "sonner";
 
-type Item = z.infer<typeof User>
+type Item = z.infer<typeof UserSchema>
 type MemberItem = Item & {
   checked: boolean
   disabled: boolean

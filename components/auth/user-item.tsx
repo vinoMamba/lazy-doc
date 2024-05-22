@@ -1,16 +1,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getFirstLetter } from "@/lib/shared"
-import { User } from "@/schema/user"
+import { UserSchema } from "@/schema/user"
 import { z } from "zod"
 
 interface Props {
-  user: z.infer<typeof User> | undefined
+  user: z.infer<typeof UserSchema> | undefined
+  className?: string
 }
 
-export const UserItem = ({ user }: Props) => {
+export const UserItem = ({ user ,className}: Props) => {
   return (
     <div className="flex items-center gap-x-2 cursor-default">
-      <Avatar>
+      <Avatar className={className}>
         <AvatarImage src={user?.avatar || ""} />
         <AvatarFallback>
           {getFirstLetter(user?.username)}
