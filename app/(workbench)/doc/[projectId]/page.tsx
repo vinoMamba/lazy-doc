@@ -1,5 +1,9 @@
+import { Editor } from "@/components/editor";
+
 export default function DocPage({ params }: { params: { projectId: string } }) {
   return (
-    <div>{params.projectId}</div>
+    <div>
+      <Editor />
+    </div>
   )
 }
