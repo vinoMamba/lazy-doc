@@ -8,11 +8,23 @@ import {
   Placeholder,
 } from "novel/extensions";
 
+import Table from '@tiptap/extension-table'
+import TableCell from '@tiptap/extension-table-cell'
+import TableHeader from '@tiptap/extension-table-header'
+import TableRow from '@tiptap/extension-table-row'
+
 import { cx } from "class-variance-authority";
 
 // TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
 
 // You can overwrite the placeholder with your own configuration
+
+const table = Table
+const tableHeader = TableHeader
+const tableRow = TableRow
+const tableCell = TableCell
+
+
 const placeholder = Placeholder;
 const tiptapLink = TiptapLink.configure({
   HTMLAttributes: {
@@ -88,4 +100,8 @@ export const defaultExtensions = [
   taskList,
   taskItem,
   horizontalRule,
+  table,
+  tableCell,
+  tableHeader,
+  tableRow,
 ];

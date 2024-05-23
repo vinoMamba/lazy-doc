@@ -1,13 +1,11 @@
 import {
-  CheckSquare,
   Code,
   Heading1,
   Heading2,
   Heading3,
-  List,
-  ListOrdered,
   Text,
   TextQuote,
+  Table2
 } from "lucide-react";
 import { createSuggestionItems } from "novel/extensions";
 import { Command, renderItems } from "novel/extensions";
@@ -27,15 +25,15 @@ export const suggestionItems = createSuggestionItems([
         .run();
     },
   },
-  {
-    title: "To-do List",
-    description: "Track tasks with a to-do list.",
-    searchTerms: ["todo", "task", "list", "check", "checkbox"],
-    icon: <CheckSquare size={18} />,
-    command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).toggleTaskList().run();
-    },
-  },
+  // {
+  //   title: "To-do List",
+  //   description: "Track tasks with a to-do list.",
+  //   searchTerms: ["todo", "task", "list", "check", "checkbox"],
+  //   icon: <CheckSquare size={18} />,
+  //   command: ({ editor, range }) => {
+  //     editor.chain().focus().deleteRange(range).toggleTaskList().run();
+  //   },
+  // },
   {
     title: "Heading 1",
     description: "Big section heading.",
@@ -78,24 +76,24 @@ export const suggestionItems = createSuggestionItems([
         .run();
     },
   },
-  {
-    title: "Bullet List",
-    description: "Create a simple bullet list.",
-    searchTerms: ["unordered", "point"],
-    icon: <List size={18} />,
-    command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).toggleBulletList().run();
-    },
-  },
-  {
-    title: "Numbered List",
-    description: "Create a list with numbering.",
-    searchTerms: ["ordered"],
-    icon: <ListOrdered size={18} />,
-    command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).toggleOrderedList().run();
-    },
-  },
+  // {
+  //   title: "Bullet List",
+  //   description: "Create a simple bullet list.",
+  //   searchTerms: ["unordered", "point"],
+  //   icon: <List size={18} />,
+  //   command: ({ editor, range }) => {
+  //     editor.chain().focus().deleteRange(range).toggleBulletList().run();
+  //   },
+  // },
+  // {
+  //   title: "Numbered List",
+  //   description: "Create a list with numbering.",
+  //   searchTerms: ["ordered"],
+  //   icon: <ListOrdered size={18} />,
+  //   command: ({ editor, range }) => {
+  //     editor.chain().focus().deleteRange(range).toggleOrderedList().run();
+  //   },
+  // },
   {
     title: "Quote",
     description: "Capture a quote.",
@@ -117,6 +115,28 @@ export const suggestionItems = createSuggestionItems([
     icon: <Code size={18} />,
     command: ({ editor, range }) =>
       editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
+  },
+  {
+    title: "Table",
+    description: "Create a table",
+    icon: <Table2 size={18} />,
+    command: ({ editor, range }) =>
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .insertTable({ rows: 3, cols: 5, withHeaderRow: true })
+        .insertContent("字段")
+        .goToNextCell()
+        .insertContent("必选")
+        .goToNextCell()
+        .insertContent("类型")
+        .goToNextCell()
+        .insertContent("长度")
+        .goToNextCell()
+        .insertContent("字段描述")
+        .goToNextCell()
+        .run()
   },
 ]);
 
