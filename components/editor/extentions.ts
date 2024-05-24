@@ -9,6 +9,7 @@ import {
 } from "novel/extensions";
 
 import Table from '@tiptap/extension-table'
+import { } from "@tiptap/extension-table"
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
@@ -19,7 +20,36 @@ import { cx } from "class-variance-authority";
 
 // You can overwrite the placeholder with your own configuration
 
-const table = Table
+const CustomTable = Table.extend({
+  addKeyboardShortcuts() {
+    return {
+      'Mod-Enter': () => {
+        if (!this.editor.can().goToNextCell()) {
+          const $table = this.editor.$node("table")
+          if ($table?.to) {
+            console.log(this.editor.getJSON())
+            console.log(this.editor.$node('table')?.attributes)
+          }
+        }
+        return true
+      },
+      Tab: () => {
+        if (this.editor.commands.goToNextCell()) {
+          return true
+        }
+        if (!this.editor.can().addRowAfter()) {
+          return false
+        }
+        return this.editor.chain().addRowAfter().goToNextCell().run()
+      },
+      'Shift-Tab': () => this.editor.commands.goToPreviousCell(),
+    }
+  }
+})
+
+const table = Table.configure({
+  resizable: true,
+})
 const tableHeader = TableHeader
 const tableRow = TableRow
 const tableCell = TableCell
