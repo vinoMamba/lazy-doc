@@ -18,7 +18,7 @@ export const Editor = () => {
     <div>
       <EditorRoot>
         <EditorContent
-          className="border p-2 rounded-xl mx-auto min-h-[750px] max-w-screen-lg bg-background"
+          className="border rounded-xl mx-auto min-h-[750px] max-w-screen-lg bg-background"
           extensions={extentions}
           initialContent={content}
           onUpdate={({ editor }) => {
