@@ -1,6 +1,6 @@
 "use client"
 
-import { fileAction } from "@/action/add-file"
+import { addFileAction } from "@/action/add-file"
 import { useAction } from "@/hooks/use-action"
 import { AddFileSchema } from "@/schema/file"
 import { PenTool } from "lucide-react"
@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 
 export const FileTreeEmpty = ({ projectId }: { projectId: string }) => {
   const { isPending, execute } = useAction<
-    z.infer<typeof AddFileSchema>, null>(fileAction, {
+    z.infer<typeof AddFileSchema>, null>(addFileAction, {
       onError(error) {
         toast.error(error)
       },

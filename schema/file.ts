@@ -12,5 +12,5 @@ export const FileItemSchema = z.object({
   name: z.string(),
   parentId: z.string().optional(),
   sort: z.number(),
-  idDir: z.boolean()
+  isDir: z.boolean()
 })

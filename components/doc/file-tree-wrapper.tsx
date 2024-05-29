@@ -1,72 +1,80 @@
 "use client"
-
-import { fileAction } from "@/action/add-file"
-import { useAction } from "@/hooks/use-action"
-import { AddFileSchema } from "@/schema/file"
-import { Tree, TreeDataItem } from "@/components/ui/tree"
+import { useEffect, useState } from "react"
 import { FileTreeEmpty } from "./file-tree-empty"
-import { Folder, Workflow } from "lucide-react"
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu"
-import { z } from "zod"
-import { toast } from "sonner"
+import { Id, sortFlatData, useHeTree } from "he-tree-react"
+import { ChevronDown, ChevronRight, FileCode2, FolderOpen } from "lucide-react"
+import { FileItem, TreeItem } from "./tree-item"
+import { cn } from "@/lib/utils"
 
 type Props = {
-  tree: any,
+  tree: FileItem[],
   projectId: string
 }
-export const FileTreeWrapper = ({ tree, projectId }: Props) => {
 
-  const { execute } = useAction<
-    z.infer<typeof AddFileSchema>, null>(fileAction, {
-      onError(error) {
-        toast.error(error)
-      },
-      onSuccess() {
-        toast.success(`Create successfully.`)
-      }
-    })
-  const handleClick = (item: TreeDataItem, isDir: boolean) => {
-    execute({
-      projectId,
-      parentId: item.id,
-      itemName: isDir ? 'New Folder' : "New File",
-      isDir
-    })
+export const FileTreeWrapper = ({ tree, projectId }: Props) => {
+  const keys = { idKey: 'id', parentIdKey: 'parentId' };
+  const [data, setData] = useState<FileItem[]>([]);
+  useEffect(() => {
+    if (tree) {
+      const value = sortFlatData<FileItem>(tree, keys)
+      setData(value)
+    }
+  }, [tree])
+  const [openIds, setOpenIds] = useState<Id[]>([])
+
+  const handleOpen = (id: Id, open: boolean) => {
+    if (open) {
+      setOpenIds([...openIds, id])
+    } else {
+      setOpenIds(openIds.filter(i => i !== id))
+    }
   }
+  const [currentItem, setCurrentItem] = useState<FileItem>()
+
+  const { renderTree } = useHeTree({
+    ...keys,
+    data,
+    dataType: 'flat',
+    onChange: setData,
+    openIds,
+    renderNodeBox({ stat, attrs, isPlaceholder }) {
+      return (
+        <div
+          {...attrs}
+          key={attrs.key}
+          className={
+            cn(
+              "hover:bg-primary-foreground",
+              currentItem?.id === stat.node.id ? 'bg-primary-foreground' : ''
+            )
+          }
+          onClick={() => setCurrentItem(stat.node)}
+        >
+          {
+            isPlaceholder
+              ? <div>DROP HERE</div>
+              : <div draggable={stat.draggable}>
+                <TreeItem
+                  projectId={projectId}
+                  id={stat.node.id}
+                  node={stat.node}
+                  open={stat.open}
+                  handleOpen={handleOpen}
+                />
+              </div>
+          }
+        </div>
+      )
+    },
+  })
   return (
     <div className="flex-1 border rounded-md">
       {tree.length === 0
         ? (<FileTreeEmpty projectId={projectId} />)
         : (
-          <Tree
-            data={tree}
-            className="h-full"
-            onSelectChange={(item) => { console.log(item) }}
-            folderIcon={Folder}
-            itemIcon={Workflow}
-            leafRender={(item) => (
-              <ContextMenu>
-                <ContextMenuTrigger>
-                  <span className="text-sm truncate w-full">{item.name}</span>
-                </ContextMenuTrigger>
-                <ContextMenuContent>
-                  <ContextMenuItem>Delete</ContextMenuItem>
-                </ContextMenuContent>
-              </ContextMenu>
-            )}
-            itemRender={(item) => (
-              <ContextMenu>
-                <ContextMenuTrigger>
-                  <span className="text-sm truncate w-full">{item.name}</span>
-                </ContextMenuTrigger>
-                <ContextMenuContent>
-                  <ContextMenuItem onClick={() => handleClick(item, true)}>Add folder</ContextMenuItem>
-                  <ContextMenuItem onClick={() => handleClick(item, false)}>Add file</ContextMenuItem>
-                  <ContextMenuItem className=" hover:bg-destructive">Delete</ContextMenuItem>
-                </ContextMenuContent>
-              </ContextMenu>
-            )}
-          />
+          <div>
+            {renderTree({ className: 'py-2' })}
+          </div>
         )}
     </div>
   )

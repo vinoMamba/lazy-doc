@@ -1,13 +1,8 @@
 import { FileTreeButton } from "./file-tree-button"
-import { z } from "zod"
-import { FileItemSchema } from "@/schema/file"
 import { getToken } from "@/lib/token"
 import { Oops } from "@/components/oops"
-import { listToTree } from "@/lib/shared"
 import { FileTreeWrapper } from "./file-tree-wrapper"
 
-type FileItem = z.infer<typeof FileItemSchema>
-type FileTreeItem = FileItem & { children?: FileItem[] }
 type Props = {
   projectId: string
 }
@@ -34,11 +29,10 @@ export const FileTree = async ({ projectId }: Props) => {
 
   if (result && result.code === 0) {
     const list = result.data || []
-    const tree = listToTree(list) as FileTreeItem[]
     return (
       <div className="w-[280px] h-full flex flex-col gap-2 px-2">
         <FileTreeButton />
-        <FileTreeWrapper tree={tree} projectId={projectId} />
+        <FileTreeWrapper tree={list} projectId={projectId} />
       </div>
     )
   } else {

@@ -5,7 +5,7 @@ import { getToken } from "@/lib/token"
 import { revalidateTag } from "next/cache"
 import { AddFileSchema } from "@/schema/file"
 
-export const fileAction: Action<z.infer<typeof AddFileSchema>> = async (values) => {
+export const addFileAction: Action<z.infer<typeof AddFileSchema>> = async (values) => {
   const token = await getToken()
   const validateValues = AddFileSchema.safeParse(values)
 

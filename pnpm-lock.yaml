@@ -83,6 +83,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
+  he-tree-react:
+    specifier: ^1.1.4
+    version: 1.1.4(react-dom@18.2.0)(react@18.2.0)
   lucide-react:
     specifier: ^0.372.0
     version: 0.372.0(react@18.2.0)
@@ -3341,6 +3344,24 @@ packages:
     resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
     dev: false
 
+  /he-tree-react@1.1.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Kr/X+HE514VG0dvjgEaNRg95WNyxtDLIygJG0OKQ4QtZ35uznBiltyVQBkgHVV6n9V8gSxxF/VXqAv7fmDhM9w==}
+    peerDependencies:
+      react: ^18
+      react-dom: ^18
+    dependencies:
+      helper-js: 3.1.5
+      react: 18.2.0
+      react-base-virtual-list: 1.0.1(react-dom@18.2.0)(react@18.2.0)
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /helper-js@3.1.5:
+    resolution: {integrity: sha512-CQ56onWqmWwJRUK55/aJ6EeJUV/eqoRiayG6bk2i0Bhs79U94M+aRdA2QLOUGXp/Hy5yAos+YQK1LQHRWiSOHw==}
+    dependencies:
+      '@babel/runtime': 7.24.4
+    dev: false
+
   /ignore@5.3.1:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
     engines: {node: '>= 4'}
@@ -4589,6 +4610,16 @@ packages:
 
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  /react-base-virtual-list@1.0.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-sfAyldFHw/+btqTA2vkrPAGTP/4nqCYr6mgTa7Bw3BtPToaM0UwwRUc+/IU5vRN9zxFbpqo5ibyU51oaCBRRiA==}
+    peerDependencies:
+      react: ^18
+      react-dom: ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /react-css-styled@1.1.9:
     resolution: {integrity: sha512-M7fJZ3IWFaIHcZEkoFOnkjdiUFmwd8d+gTh2bpqMOcnxy/0Gsykw4dsL4QBiKsxcGow6tETUa4NAUcmJF+/nfw==}
