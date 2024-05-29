@@ -16,18 +16,20 @@ type Props = {
 export const TreeItem = ({ handleOpen, id, node, open, projectId }: Props) => {
   return (
     <div
-      onClick={() => handleOpen(id, !open)}
       className="p-1 px-2 flex items-center gap-2 cursor-pointer group ">
       <div className="flex items-center gap-2 flex-1">
-        {node.isDir
-          ? open
-            ? <FolderOpen className="w-[1.2rem] h-[1.2rem]" />
-            : <FolderClosed className="w-[1.2rem] h-[1.2rem]" />
-          : <FileCode2 className="w-[1.2rem] h-[1.2rem]" />
-        }
+        <div onClick={() => handleOpen(id, !open)}>
+          {node.isDir
+            ? open
+              ? <FolderOpen className="w-[1.2rem] h-[1.2rem]" />
+              : <FolderClosed className="w-[1.2rem] h-[1.2rem]" />
+            : <FileCode2 className="w-[1.2rem] h-[1.2rem]" />
+          }
+        </div>
         <span className="truncate">{node.name}</span>
       </div>
       <FileItemDropdownMenu
+        isDir={node.isDir}
         projectId={projectId}
         parentId={node.id}
         className=" group-hover:opacity-100"

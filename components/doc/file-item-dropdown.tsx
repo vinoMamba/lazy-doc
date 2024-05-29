@@ -13,9 +13,10 @@ type Props = {
   className?: string
   projectId: string
   parentId: string
+  isDir: boolean
 }
 
-export const FileItemDropdownMenu = ({ className, projectId, parentId }: Props) => {
+export const FileItemDropdownMenu = ({ className, projectId, parentId, isDir }: Props) => {
   const [open, setOpen] = useState(false)
   const { execute } = useAction<z.infer<typeof AddFileSchema>, null>(addFileAction, {
     onSuccess: () => {
@@ -46,11 +47,20 @@ export const FileItemDropdownMenu = ({ className, projectId, parentId }: Props) 
         <Ellipsis className="w-[1.2rem] h-[1.2rem]" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={() => handleAdd(false)}>
-          Add file
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleAdd(true)}>
-          Add folder
+        {
+          isDir && (
+            <>
+              <DropdownMenuItem onClick={() => handleAdd(false)}>
+                Add file
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleAdd(true)}>
+                Add folder
+              </DropdownMenuItem>
+            </>
+          )
+        }
+        <DropdownMenuItem>
+          Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

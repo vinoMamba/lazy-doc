@@ -37,15 +37,20 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
     dataType: 'flat',
     onChange: setData,
     openIds,
+    canDrop(stat) {
+      return stat.node.isDir
+    },
     renderNodeBox({ stat, attrs, isPlaceholder }) {
+      const selected = stat && (currentItem?.id === stat.node.id)
       return (
         <div
           {...attrs}
           key={attrs.key}
           className={
             cn(
-              "hover:bg-primary-foreground",
-              currentItem?.id === stat.node.id ? 'bg-primary-foreground' : ''
+              "hover:bg-primary-foreground relative before:absolute before:left-0 before:w-1 before:h-[1.75rem]",
+              selected && "before:opacity-100 before:bg-accent text-accent-foreground before:border-l-2 before:border-l-accent-foreground/50 dark:before:border-0",
+              selected ? 'bg-primary-foreground' : ''
             )
           }
           onClick={() => setCurrentItem(stat.node)}
