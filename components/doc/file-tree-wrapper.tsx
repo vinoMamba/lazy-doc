@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react"
 import { FileTreeEmpty } from "./file-tree-empty"
 import { Id, sortFlatData, useHeTree } from "he-tree-react"
-import { ChevronDown, ChevronRight, FileCode2, FolderOpen } from "lucide-react"
 import { FileItem, TreeItem } from "./tree-item"
 import { cn } from "@/lib/utils"
 
@@ -20,6 +19,11 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
       setData(value)
     }
   }, [tree])
+  const handleChange = (data: FileItem[]) => {
+    //TODO: update
+    setData(data)
+  }
+
   const [openIds, setOpenIds] = useState<Id[]>([])
 
   const handleOpen = (id: Id, open: boolean) => {
@@ -35,7 +39,7 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
     ...keys,
     data,
     dataType: 'flat',
-    onChange: setData,
+    onChange: handleChange,
     openIds,
     canDrop(stat) {
       return stat.node.isDir
@@ -78,7 +82,7 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
         ? (<FileTreeEmpty projectId={projectId} />)
         : (
           <div>
-            {renderTree({ className: 'py-2' })}
+            {renderTree({ className: 'py-2 h-[800px]' })}
           </div>
         )}
     </div>
