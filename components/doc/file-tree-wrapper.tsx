@@ -4,6 +4,11 @@ import { FileTreeEmpty } from "./file-tree-empty"
 import { Id, sortFlatData, useHeTree } from "he-tree-react"
 import { FileItem, TreeItem } from "./tree-item"
 import { cn } from "@/lib/utils"
+import { useAction } from "@/hooks/use-action"
+import { UpdateFileItemListSchema } from "@/schema/file"
+import { updateFileListAction } from "@/action/update-file"
+import { toast } from "sonner"
+import { z } from "zod"
 
 type Props = {
   tree: FileItem[],
@@ -19,9 +24,23 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
       setData(value)
     }
   }, [tree])
+
+  const { execute } = useAction<
+    z.infer<typeof UpdateFileItemListSchema>, null>(updateFileListAction, {
+      onError(error) {
+        toast.error(error)
+      },
+      onSuccess() {
+        toast.success(`Update successfully.`)
+      }
+    })
+
   const handleChange = (data: FileItem[]) => {
-    //TODO: update
     setData(data)
+    data.forEach((item, index) => {
+      item.sort = index
+    })
+    execute({ items: data })
   }
 
   const [openIds, setOpenIds] = useState<Id[]>([])

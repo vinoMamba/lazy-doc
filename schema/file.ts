@@ -14,3 +14,14 @@ export const FileItemSchema = z.object({
   sort: z.number(),
   isDir: z.boolean()
 })
+
+
+
+
+
+export const UpdateFileItemListSchema = z.object({
+  items: z.array(FileItemSchema)
+})
+
+
+

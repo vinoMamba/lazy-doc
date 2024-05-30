@@ -1,6 +1,6 @@
 import { FileItemSchema } from "@/schema/file"
 import { Id } from "he-tree-react"
-import { ChevronDown, ChevronRight, Ellipsis, FileCode2, FolderClosed, FolderOpen } from "lucide-react"
+import { FileCode2, FolderClosed, FolderOpen } from "lucide-react"
 import { z } from "zod"
 import { FileItemDropdownMenu } from "./file-item-dropdown"
 
