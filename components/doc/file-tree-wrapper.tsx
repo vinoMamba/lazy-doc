@@ -39,6 +39,9 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
     setData(data)
     data.forEach((item, index) => {
       item.sort = index
+      if (item.parentId === null) {
+        item.parentId = ""
+      }
     })
     execute({ items: data })
   }
