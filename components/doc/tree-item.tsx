@@ -21,7 +21,7 @@ type Props = {
 export const TreeItem = ({ handleOpen, id, node, open, projectId }: Props) => {
   const [isEdit, setIsEdit] = useState(false)
   const [fileName, setFileName] = useState('')
-  const { execute, isPending } = useAction<z.infer<typeof UpdateFileNameSchema>, null>(updateFileNameAction, {
+  const { execute } = useAction<z.infer<typeof UpdateFileNameSchema>, null>(updateFileNameAction, {
     onSuccess: () => {
       toast.success("Update successfully")
       setIsEdit(false)

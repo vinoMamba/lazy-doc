@@ -59,7 +59,9 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
   }
 
   const handleItemClick = (stat: Stat<FileItem>) => {
-    setCurrentItem(stat)
+    if (!stat.node.isDir) {
+      setCurrentItem(stat)
+    }
   }
 
   const { renderTree } = useHeTree({
@@ -110,7 +112,7 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
         ? (<FileTreeEmpty projectId={projectId} />)
         : (
           <div>
-            {renderTree({ className: 'py-2 h-[800px]' })}
+            {renderTree({ className: 'py-2' })}
           </div>
         )}
     </div>

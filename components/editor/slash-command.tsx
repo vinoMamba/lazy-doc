@@ -6,14 +6,27 @@ import {
   Text,
   TextQuote,
   Table2,
-  CheckSquare,
   List,
   ListOrdered
 } from "lucide-react";
 import { createSuggestionItems } from "novel/extensions";
 import { Command, renderItems } from "novel/extensions";
+import { apiTemplateJson } from "./api-template";
 
 export const suggestionItems = createSuggestionItems([
+  {
+    title: "Api Template",
+    description: "Just start typing whth api template.",
+    icon: <Text size={18} />,
+    command: ({ editor, range }) => {
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .insertContent(apiTemplateJson)
+        .run();
+    },
+  },
   {
     title: "Text",
     description: "Just start typing with plain text.",
