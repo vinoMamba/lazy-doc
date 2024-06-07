@@ -1,8 +1,9 @@
 "use client"
 import { useEffect, useState } from "react"
 import { FileTreeEmpty } from "./file-tree-empty"
-import { Id, sortFlatData, useHeTree } from "he-tree-react"
-import { FileItem, TreeItem } from "./tree-item"
+import { Id, Stat, sortFlatData, useHeTree } from "he-tree-react"
+import { FileItem, useFileItem } from "@/hooks/use-file-item"
+import { TreeItem } from "./tree-item"
 import { cn } from "@/lib/utils"
 import { useAction } from "@/hooks/use-action"
 import { UpdateFileItemListSchema } from "@/schema/file"
@@ -17,6 +18,7 @@ type Props = {
 
 export const FileTreeWrapper = ({ tree, projectId }: Props) => {
   const keys = { idKey: 'id', parentIdKey: 'parentId' };
+  const [currentItem, setCurrentItem] = useFileItem(s => [s.currentItem, s.setCurrentItem])
   const [data, setData] = useState<FileItem[]>([]);
   useEffect(() => {
     if (tree) {
@@ -55,7 +57,10 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
       setOpenIds(openIds.filter(i => i !== id))
     }
   }
-  const [currentItem, setCurrentItem] = useState<FileItem>()
+
+  const handleItemClick = (stat: Stat<FileItem>) => {
+    setCurrentItem(stat)
+  }
 
   const { renderTree } = useHeTree({
     ...keys,
@@ -79,13 +84,14 @@ export const FileTreeWrapper = ({ tree, projectId }: Props) => {
               selected ? 'bg-primary-foreground' : ''
             )
           }
-          onClick={() => setCurrentItem(stat.node)}
+          onClick={() => handleItemClick(stat)}
         >
           {
             isPlaceholder
               ? <div>DROP HERE</div>
               : <div draggable={stat.draggable}>
                 <TreeItem
+                  key={stat.node.id}
                   projectId={projectId}
                   id={stat.node.id}
                   node={stat.node}

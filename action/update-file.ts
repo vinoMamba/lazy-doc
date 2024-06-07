@@ -3,7 +3,7 @@
 import { z } from "zod"
 import { getToken } from "@/lib/token"
 import { revalidateTag } from "next/cache"
-import { UpdateFileItemListSchema } from "@/schema/file"
+import { FileItemSchema, UpdateFileItemListSchema, UpdateFileNameSchema } from "@/schema/file"
 
 export const updateFileListAction: Action<z.infer<typeof UpdateFileItemListSchema>> = async (values) => {
   const token = await getToken()
@@ -24,6 +24,44 @@ export const updateFileListAction: Action<z.infer<typeof UpdateFileItemListSchem
       },
       body: JSON.stringify(validateValues.data)
     })
+    const json = await result.json();
+    if (json.code === 0 && result.status === 200) {
+      revalidateTag("fileItem")
+      return {
+        data: null
+      }
+    } else {
+      return {
+        error: json.message
+      }
+    }
+  } catch (error) {
+    return {
+      error: "Invalid params. Please try again.",
+    }
+  }
+}
+
+export const updateFileNameAction: Action<z.infer<typeof UpdateFileNameSchema>> = async (values) => {
+  const token = await getToken()
+  const validateValues = UpdateFileNameSchema.safeParse(values)
+
+  if (!validateValues.success) {
+    return {
+      error: "Please enter a valid params.",
+    }
+  }
+
+  try {
+    const result = await fetch(`${process.env.NEXT_API_URL}/project/item/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(validateValues.data)
+    })
+
     const json = await result.json();
     if (json.code === 0 && result.status === 200) {
       revalidateTag("fileItem")
