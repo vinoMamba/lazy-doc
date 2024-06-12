@@ -1,7 +1,7 @@
 "use client"
 import "./prosemirror.css"
-import { EditorBubble, EditorCommand, EditorCommandEmpty, EditorCommandItem, EditorCommandList, EditorContent, EditorRoot, JSONContent, useEditor } from "novel";
-import { useState } from "react";
+import { EditorBubble, EditorCommand, EditorCommandEmpty, EditorCommandItem, EditorCommandList, EditorContent, EditorRoot, JSONContent, EditorInstance } from "novel";
+import { useEffect, useState } from "react";
 import { defaultExtensions } from "./extentions";
 import { slashCommand, suggestionItems } from "./slash-command";
 import { handleCommandNavigation } from "novel/extensions";
@@ -9,25 +9,35 @@ import { Separator } from "@/components/ui/separator";
 import { NodeSelector } from "./node-selector";
 import { TextButtons } from "./text-buttons";
 import { cn } from "@/lib/utils";
+import { SaveButton } from "./save-button";
 
 const extentions = [...defaultExtensions, slashCommand]
 
 type Props = {
   className?: string
+  data: JSONContent
 }
 
-export const Editor = ({ className }: Props) => {
+export const Editor = ({ className, data }: Props) => {
+  const [editor, setEditor] = useState<EditorInstance | null>(null)
   const [openNode, setOpenNode] = useState(false);
-  const [content, setContent] = useState<JSONContent>()
+  const [content, setContent] = useState<JSONContent>({})
+
+  useEffect(() => {
+    if (!editor) return
+    editor.commands.setContent(data)
+  }, [data])
+
+
   return (
     <EditorRoot>
       <EditorContent
-        className={cn('bg-background', className)}
+        className={cn('bg-background relative', className)}
         extensions={extentions}
         initialContent={content}
+        onCreate={({ editor }) => setEditor(editor)}
         onUpdate={({ editor }) => {
           const json = editor.getJSON()
-          console.log(JSON.stringify(json))
           setContent(json)
         }}
         editorProps={{
@@ -73,6 +83,9 @@ export const Editor = ({ className }: Props) => {
           <Separator orientation="vertical" />
           <TextButtons />
         </EditorBubble>
+        <div className="absolute right-4 top-4">
+          <SaveButton/>
+        </div>
       </EditorContent>
     </EditorRoot>
   )
